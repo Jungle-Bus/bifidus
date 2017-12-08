@@ -1,2 +1,2 @@
 # bifidus
-A new website to handle Osmose issues about transit
+A new website to handle Osmose issues about public transport
