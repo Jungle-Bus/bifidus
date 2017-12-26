@@ -43,6 +43,54 @@
     }));
 
     map.on('load', function() {
+
+      map.addLayer({
+        "id": "poi",
+        "type": "symbol",
+        "source": "openmaptiles",
+        "source-layer": "poi",
+        "filter": [
+          "all", [
+            "==",
+            "$type",
+            "Point"
+          ],
+          [
+            "==",
+            "subclass",
+            "bus_stop"
+          ],
+          [
+            "==",
+            "class",
+            "bus"
+          ],
+        ],
+        "layout": {
+          "text-padding": 2,
+          "text-font": [
+            "Noto Sans Regular"
+          ],
+          "text-anchor": "top",
+          "icon-image": "{class}_11",
+          "icon-allow-overlap": true,
+          "text-field": "{name}",
+          "text-offset": [
+            0,
+            0.6
+          ],
+          "text-size": 12,
+          "text-max-width": 9
+        },
+        "paint": {
+          "text-halo-blur": 0.5,
+          "text-color": "#666",
+          "text-halo-width": 1,
+          "text-halo-color": "#ffffff"
+        }
+      });
+
+
       map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-3010.png', function(error, image) {
         if (error)
           throw error;
@@ -74,9 +122,11 @@
             "==", "item", 8040
         ],*/
         "layout": {
-          "icon-image": "{item}"
+          "icon-image": "{item}",
+          "icon-anchor": "bottom"
         }
       });
+
       map.on('mouseenter', 'issues_', function(e) {
         map.getCanvas().style.cursor = 'pointer';
       });

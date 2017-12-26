@@ -33,7 +33,7 @@
       "url": "https://free.tilehosting.com/data/v3.json?key=RiS4gsgZPZqeeMlIyxFo"
     }
   },
-  "sprite": "https://openmaptiles.github.io/positron-gl-style/sprite",
+  "sprite": "https://openmaptiles.github.io/osm-bright-gl-style/sprite",
   "glyphs": "https://free.tilehosting.com/fonts/{fontstack}/{range}.pbf?key=RiS4gsgZPZqeeMlIyxFo",
   "layers": [{
       "id": "background",
