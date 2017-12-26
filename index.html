@@ -13,6 +13,21 @@
       padding: 0;
     }
 
+    .map-overlay {
+      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      position: absolute;
+      background-color: #fff;
+      z-index: 12;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      padding: 10px;
+      box-sizing: border-box;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      display: none;
+    }
+
     #map {
       position: absolute;
       top: 0;
@@ -24,6 +39,10 @@
 
 <body>
   <div id='map'></div>
+  <div class='map-overlay' id='popup'>
+    <b>Cet arrêt semble manquant</b> <br/>
+    <a target='blank_' href='#'>Voir sur MapContrib</a>
+  </div>
   <script>
     var map = new mapboxgl.Map({
       container: 'map',
@@ -135,15 +154,21 @@
         map.getCanvas().style.cursor = '';
       });
 
+      var popup = document.getElementById('popup');
+
+      map.on('click', function(e) {
+        if (popup.style.display == 'block') {
+          popup.style.display = 'none'
+        }
+
+      });
+
       map.on('click', 'issues_', function(e) {
         map.flyTo({
           center: e.features[0].geometry.coordinates,
           zoom: 18
         });
-        var popup = new mapboxgl.Popup().setLngLat(e.features[0].geometry.coordinates).setHTML(
-          "<br><a target='blank_' href='http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id + "'>Voir cette erreur</a>"
-        )
-        popup.addTo(map);
+
         var item_id = e.features[0]['properties']['item'];
         console.log(e.features[0])
 
@@ -164,7 +189,9 @@
                   popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
                 }
               }
-              popup.setHTML(popup_content)
+
+              popup.style.display = 'block';
+              popup.innerHTML = popup_content
             });
           } else {
             console.log("Fetch failed!", res.status);
