@@ -14,11 +14,10 @@
     }
 
     .map-overlay {
-      font: 12px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
       position: absolute;
       background-color: #fff;
       z-index: 12;
-      width: 100%;
       bottom: 0;
       left: 0;
       padding: 10px;
@@ -26,6 +25,12 @@
       border-top-left-radius: 15px;
       border-top-right-radius: 15px;
       display: none;
+    }
+
+    @media screen and (max-width: 480px) {
+      .map-overlay {
+        width: 100%;
+      }
     }
 
     #map {
