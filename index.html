@@ -13,40 +13,43 @@
       padding: 0;
     }
 
-    .map-overlay {
-      font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
-      position: absolute;
-      background-color: #fff;
-      z-index: 12;
-      bottom: 0;
-      left: 0;
-      padding: 10px;
-      box-sizing: border-box;
-      border-top-left-radius: 15px;
-      border-top-right-radius: 15px;
-      display: none;
-    }
-
-    @media screen and (max-width: 480px) {
-      .map-overlay {
-        width: 100%;
-      }
-    }
-
-    #map {
+    #all_page {
       position: absolute;
       top: 0;
       bottom: 0;
       width: 100%;
+      height: 100%;
+      display: grid;
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 100px;
+    }
+
+    .map-overlay {
+      font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+      background-color: #fff;
+      z-index: 12;
+      padding: 10px;
+      box-sizing: border-box;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+    }
+
+    @media screen and (min-aspect-ratio: 8/5) {
+      #all_page {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr 250px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <div id='map'></div>
-  <div class='map-overlay' id='popup'>
-    <b>Cet arrêt semble manquant</b> <br/>
-    <a target='blank_' href='#'>Voir sur MapContrib</a>
+  <div id="all_page">
+    <div id='map'></div>
+    <div class='map-overlay' id='popup'>
+      <b>Cet arrêt semble manquant</b> <br/>
+      <a target='blank_' href='#'>Voir sur MapContrib</a>
+    </div>
   </div>
   <script src="index.js"></script>
 </body>

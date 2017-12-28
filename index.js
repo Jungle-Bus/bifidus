@@ -7,6 +7,28 @@ var map = new mapboxgl.Map({
     zoom: 14,
     hash: true
 });
+
+var popup = document.getElementById('popup');
+
+function hidePopup(){
+    popup.style.display = 'none';
+    document.getElementById("map").style.gridColumnStart = 1;
+    document.getElementById("map").style.gridColumnEnd = 3;
+    document.getElementById("map").style.gridRowStart = 1;
+    document.getElementById("map").style.gridRowEnd = 3;
+    map.resize();
+}
+hidePopup();
+
+function showPopup(){
+  popup.style.display = 'inline-block';
+  document.getElementById("map").style.gridColumnStart = 1;
+  document.getElementById("map").style.gridColumnEnd = 2;
+  document.getElementById("map").style.gridRowStart = 1;
+  document.getElementById("map").style.gridRowEnd = 2;
+  map.resize();
+}
+
 map.addControl(new mapboxgl.NavigationControl());
 map.addControl(new mapboxgl.GeolocateControl({
     positionOptions: {
@@ -108,13 +130,8 @@ map.on('load', function() {
         map.getCanvas().style.cursor = '';
     });
 
-    var popup = document.getElementById('popup');
-
     map.on('click', function(e) {
-        if (popup.style.display == 'block') {
-            popup.style.display = 'none'
-        }
-
+      hidePopup();
     });
 
     map.on('click', 'issues_', display_info);
@@ -146,8 +163,8 @@ map.on('load', function() {
                 }
             }
 
-            popup.style.display = 'block';
-            popup.innerHTML = popup_content
+          popup.innerHTML = popup_content
+          showPopup();
         } catch (err) {
             console.log("erreur en récupérant les infos d'Osmose : " + err)
         }
