@@ -117,41 +117,39 @@ map.on('load', function() {
 
     });
 
-    map.on('click', 'issues_', function(e) {
+    map.on('click', 'issues_', display_info);
+
+    async function display_info(e) {
         map.flyTo({
             center: e.features[0].geometry.coordinates,
             zoom: 18
         });
 
         var item_id = e.features[0]['properties']['item'];
-        console.log(e.features[0])
 
-        fetch("https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id).then(function(res) {
-            if (res.ok) {
-                res.json().then(function(data) {
-                    if (item_id == 8040) {
-                        var popup_content = "<b>Cet arrêt semble manquant</b> <br/>"
-                        popup_content += data['subtitle']
-                        var mapcontrib_url = 'https://www.cartes.xyz/t/e7200d-Arrets_de_bus#position/18/' + e.features[0].geometry.coordinates[1] + '/' + e.features[0].geometry.coordinates[0];
-                        popup_content += "<br><a target='blank_' href='" + mapcontrib_url + "'>Voir sur MapContrib</a>"
-                    } else {
-                        var popup_content = "<b>" + data['title'] + "</b><br/>"
-                        popup_content += data['subtitle']
-                        for (elem_id in data['elems']) {
-                            elem = data['elems'][elem_id]
-                            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
-                            popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
-                        }
-                    }
-
-                    popup.style.display = 'block';
-                    popup.innerHTML = popup_content
-                });
+        try {
+            var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+            var osmose_response = await fetch(osmose_url);
+            var osmose_data = await osmose_response.json();
+            if (item_id == 8040) {
+                var popup_content = "<b>Cet arrêt semble manquant</b> <br/>"
+                popup_content += osmose_data['subtitle']
+                var mapcontrib_url = 'https://www.cartes.xyz/t/e7200d-Arrets_de_bus#position/18/' + e.features[0].geometry.coordinates[1] + '/' + e.features[0].geometry.coordinates[0];
+                popup_content += "<br><a target='blank_' href='" + mapcontrib_url + "'>Voir sur MapContrib</a>"
             } else {
-                console.log("Fetch failed!", res.status);
+                var popup_content = "<b>" + osmose_data['title'] + "</b><br/>"
+                popup_content += osmose_data['subtitle']
+                for (elem_id in osmose_data['elems']) {
+                    elem = osmose_data['elems'][elem_id]
+                    var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+                    popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+                }
             }
-        }, function(e) {
-            console.log("Fetch failed!", e);
-        });
-    });
+
+            popup.style.display = 'block';
+            popup.innerHTML = popup_content
+        } catch (err) {
+            console.log("erreur en récupérant les infos d'Osmose : " + err)
+        }
+    }
 })
