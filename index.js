@@ -318,4 +318,74 @@ map.on('load', function() {
 
     }
 
+
+    //other
+    if (osmose_issues_to_display === '2140' || osmose_issues_to_display === 'all') {
+        generic_osmose('2140', '2140')
+    }
+    if (osmose_issues_to_display === '8040' || osmose_issues_to_display === 'all') {
+        generic_osmose('8040', '8040')
+    }
+
+    function generic_osmose(osmose_name, osmose_item, osmose_class) {
+        var osmose_tiles_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?"
+        osmose_tiles_url += "item=" + osmose_item
+        if (osmose_class) {
+            osmose_tiles_url += "&class=" + osmose_class
+        }
+        map.addLayer({
+            "id": "issues_" + osmose_name,
+            "type": "symbol",
+            "source": {
+                'type': 'vector',
+                "tiles": [osmose_tiles_url],
+                "attribution": "Osmose",
+                "minzoom": 12
+            },
+            "source-layer": "issues",
+            "layout": {
+                "icon-image": "{item}"
+            }
+        });
+        map.on('mouseenter', "issues_" + osmose_name, function(e) {
+            map.getCanvas().style.cursor = 'pointer';
+        });
+
+        map.on('mouseleave', "issues_" + osmose_name, function() {
+            map.getCanvas().style.cursor = '';
+        });
+
+        map.on('click', "issues_" + osmose_name, display_generic)
+
+        async function display_generic(e) {
+            map.flyTo({
+                center: e.features[0].geometry.coordinates,
+                zoom: 18
+            });
+
+            var item_id = e.features[0]['properties']['item'];
+
+            try {
+                var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+                var osmose_response = await fetch(osmose_url);
+                var osmose_data = await osmose_response.json();
+
+                var popup_content = "<b>" + osmose_data['title'] + "</b><br/>"
+                popup_content += osmose_data['subtitle']
+                for (elem_id in osmose_data['elems']) {
+                    elem = osmose_data['elems'][elem_id]
+                    var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+                    popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+                }
+
+
+                popup.style.display = 'block';
+                popup.innerHTML = popup_content
+            } catch (err) {
+                console.log("erreur en récupérant les infos d'Osmose : " + err)
+            }
+        }
+
+    }
+
 })
