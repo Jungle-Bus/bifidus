@@ -15,7 +15,12 @@ map.addControl(new mapboxgl.GeolocateControl({
     trackUserLocation: true
 }));
 
-var osmose_issues_to_display = "all"
+var osmose_issues = ['1260_1', '1260_2', '1260_3', '1260_4', '2140', '8040']
+osmose_issues_to_display = get_paramater_from_url("issues")
+if (!osmose_issues.includes(osmose_issues_to_display)){
+    var osmose_issues_to_display = "all"
+    console.log("Le numéro Osmose passé dans l'URL n'est pas valide, on affiche tout")
+}
 
 map.on('load', function() {
     map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-3010.png', function(error, image) {
@@ -392,3 +397,10 @@ map.on('load', function() {
     }
 
 })
+
+function get_paramater_from_url(param_name) {
+    param_name = param_name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + param_name + "=([^&#]*)"),
+        results = regex.exec(location.href);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+}
