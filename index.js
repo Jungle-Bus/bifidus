@@ -364,6 +364,9 @@ map.on('load', function() {
             });
 
             var item_id = e.features[0]['properties']['item'];
+            popup.style.display = 'block';
+            popup.innerHTML = "<div class='spinner_loader'></div>"
+
 
             try {
                 var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
@@ -379,10 +382,10 @@ map.on('load', function() {
                 }
 
 
-                popup.style.display = 'block';
                 popup.innerHTML = popup_content
             } catch (err) {
                 console.log("erreur en récupérant les infos d'Osmose : " + err)
+                popup.innerHTML = "Impossible de récupérer le détail de cette erreur :( Réessayez plus tard !"
             }
         }
 
