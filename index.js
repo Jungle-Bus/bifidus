@@ -15,12 +15,7 @@ map.addControl(new mapboxgl.GeolocateControl({
     trackUserLocation: true
 }));
 
-var osmose_issues = ['1260_1', '1260_2', '1260_3', '1260_4', '2140', '8040']
-osmose_issues_to_display = get_paramater_from_url("issues")
-if (!osmose_issues.includes(osmose_issues_to_display)){
-    var osmose_issues_to_display = "all"
-    console.log("Le numéro Osmose passé dans l'URL n'est pas valide, on affiche tout")
-}
+osmose_issues_to_display = get_issues_to_display_from_url()
 
 map.on('load', function() {
     map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-3010.png', function(error, image) {
@@ -66,13 +61,8 @@ map.on('load', function() {
                 "icon-image": "{item}"
             }
         });
-        map.on('mouseenter', 'issues_1260_2', function(e) {
-            map.getCanvas().style.cursor = 'pointer';
-        });
 
-        map.on('mouseleave', 'issues_1260_2', function() {
-            map.getCanvas().style.cursor = '';
-        });
+        change_cursor_under_the_mouse("issues_1260_2");
 
         map.on('click', 'issues_1260_2', display_info_1260_2);
 
@@ -126,13 +116,8 @@ map.on('load', function() {
                 "icon-image": "{item}"
             }
         });
-        map.on('mouseenter', 'issues_1260_1', function(e) {
-            map.getCanvas().style.cursor = 'pointer';
-        });
 
-        map.on('mouseleave', 'issues_1260_1', function() {
-            map.getCanvas().style.cursor = '';
-        });
+        change_cursor_under_the_mouse("issues_1260_1");
 
         map.on('click', 'issues_1260_1', display_info_1260_1)
         async function display_info_1260_1(e) {
@@ -183,13 +168,8 @@ map.on('load', function() {
                 "icon-image": "{item}"
             }
         });
-        map.on('mouseenter', 'issues_1260_3', function(e) {
-            map.getCanvas().style.cursor = 'pointer';
-        });
 
-        map.on('mouseleave', 'issues_1260_3', function() {
-            map.getCanvas().style.cursor = '';
-        });
+        change_cursor_under_the_mouse("issues_1260_3");
 
         map.on('click', 'issues_1260_3', display_info_1260_3)
         async function display_info_1260_3(e) {
@@ -242,13 +222,8 @@ map.on('load', function() {
                 "icon-image": "{item}"
             }
         });
-        map.on('mouseenter', 'issues_1260_4', function(e) {
-            map.getCanvas().style.cursor = 'pointer';
-        });
 
-        map.on('mouseleave', 'issues_1260_4', function() {
-            map.getCanvas().style.cursor = '';
-        });
+        change_cursor_under_the_mouse("issues_1260_4");
 
         map.on('click', 'issues_1260_4', display_info_1260_4)
         async function display_info_1260_4(e) {
@@ -352,15 +327,10 @@ map.on('load', function() {
                 "icon-image": "{item}"
             }
         });
-        map.on('mouseenter', "issues_" + osmose_name, function(e) {
-            map.getCanvas().style.cursor = 'pointer';
-        });
 
-        map.on('mouseleave', "issues_" + osmose_name, function() {
-            map.getCanvas().style.cursor = '';
-        });
+        change_cursor_under_the_mouse("issues_" + osmose_name);
 
-        map.on('click', "issues_" + osmose_name, display_generic)
+        map.on('click', "issues_" + osmose_name, display_generic);
 
         async function display_generic(e) {
             map.flyTo({
@@ -398,7 +368,28 @@ map.on('load', function() {
 
 })
 
-function get_paramater_from_url(param_name) {
+function get_issues_to_display_from_url() {
+    var osmose_issues = ['1260_1', '1260_2', '1260_3', '1260_4', '2140', '8040']
+    osmose_issues_to_display = get_parameter_from_url("issues")
+    if (!osmose_issues.includes(osmose_issues_to_display)) {
+        var osmose_issues_to_display = "all"
+        console.log("Le numéro Osmose passé dans l'URL n'est pas valide, on affiche tout")
+    }
+    return osmose_issues_to_display
+}
+
+/* utils */
+function change_cursor_under_the_mouse(layer_name) {
+    map.on('mouseenter', layer_name, function(e) {
+        map.getCanvas().style.cursor = 'pointer';
+    });
+
+    map.on('mouseleave', layer_name, function() {
+        map.getCanvas().style.cursor = '';
+    });
+}
+
+function get_parameter_from_url(param_name) {
     param_name = param_name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
     var regex = new RegExp("[\\?&]" + param_name + "=([^&#]*)"),
         results = regex.exec(location.href);
