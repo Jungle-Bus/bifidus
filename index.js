@@ -36,14 +36,7 @@ map.on('load', function() {
         map.addImage('1260', image);
     });
 
-    var popup = document.getElementById('popup');
-
-    map.on('click', function(e) {
-        if (popup.style.display == 'block') {
-            popup.style.display = 'none'
-        }
-
-    });
+    map.on('click', popup_element.remove);
 
     // issues_1260_2
     if (osmose_issues_to_display === '1260_2' || osmose_issues_to_display === 'all') {
@@ -74,8 +67,7 @@ map.on('load', function() {
             var popup_content = "<b>Cet arrêt est trop éloigné du trajet de cette ligne </b></br>"
             popup_content += "Soit le tracé est incomplet, ou erroné, soit l'arrêt ne fait pas partie du trajet de cette ligne"
 
-            popup.style.display = 'block';
-            popup.innerHTML = popup_content
+            popup_element.init(popup_content)
             var item_id = e.features[0]['properties']['item'];
 
             try {
@@ -91,7 +83,7 @@ map.on('load', function() {
                         popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
                     }
                 }
-                popup.innerHTML = popup_content
+                popup_element.update(popup_content)
 
             } catch (err) {
                 console.log("erreur en récupérant les infos d'Osmose : " + err)
@@ -128,8 +120,7 @@ map.on('load', function() {
             var popup_content = "<b>Le trajet de cette ligne contient des trous </b></br>"
             popup_content += "Le tracé est sûrement incomplet, ou erroné."
 
-            popup.style.display = 'block';
-            popup.innerHTML = popup_content
+            popup_element.init(popup_content)
             var item_id = e.features[0]['properties']['item'];
             try {
                 var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
@@ -143,7 +134,7 @@ map.on('load', function() {
                         popup_content += "<br><a target='blank_' href='" + external_url + "'>Analyser cette relation</a>"
                     }
                 }
-                popup.innerHTML = popup_content
+                popup_element.update(popup_content)
 
             } catch (err) {
                 console.log("erreur en récupérant les infos d'Osmose : " + err)
@@ -181,8 +172,7 @@ map.on('load', function() {
             popup_content += "Il s'agit d'une relation modélisant une ligne de transport, elle ne devrait contenir que des relations de type route.<br>"
             popup_content += "Il faut vérifier les objets membres de cette relation."
 
-            popup.style.display = 'block';
-            popup.innerHTML = popup_content
+            popup_element.init(popup_content)
             var item_id = e.features[0]['properties']['item'];
             try {
                 var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
@@ -196,7 +186,7 @@ map.on('load', function() {
                         popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
                     }
                 }
-                popup.innerHTML = popup_content
+                popup_element.update(popup_content)
 
             } catch (err) {
                 console.log("erreur en récupérant les infos d'Osmose : " + err)
@@ -233,8 +223,7 @@ map.on('load', function() {
             });
             var popup_content = "<b>Ce trajet n'est rattaché à aucune ligne !</b></br>"
 
-            popup.style.display = 'block';
-            popup.innerHTML = popup_content
+            popup_element.init(popup_content)
             var item_id = e.features[0]['properties']['item'];
 
             try {
@@ -262,7 +251,7 @@ map.on('load', function() {
                 popup_content += "<span id='overpass_candidates'></span>";
                 var osm_url = 'http://osm.org/relation/' + rel_id;
                 popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir le trajet orphelin sur OSM</a>";
-                popup.innerHTML = popup_content
+                popup_element.update(popup_content)
 
                 if (network && operator && ref) {
                     var overpass_url = 'https://overpass-api.de/api/interpreter?data=[out:json];('
@@ -287,7 +276,7 @@ map.on('load', function() {
                         popup_content += "<br>Créer la ligne  associée avec Réglisse (TODO ajouter lien)<br>"
 
                     }
-                    popup.innerHTML = popup_content
+                    popup_element.update(popup_content)
                 }
 
 
@@ -339,9 +328,7 @@ map.on('load', function() {
             });
 
             var item_id = e.features[0]['properties']['item'];
-            popup.style.display = 'block';
-            popup.innerHTML = "<div class='spinner_loader'></div>"
-
+            popup_element.init("<div class='spinner_loader'></div>")
 
             try {
                 var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
@@ -357,10 +344,10 @@ map.on('load', function() {
                 }
 
 
-                popup.innerHTML = popup_content
+                popup_element.update(popup_content)
             } catch (err) {
                 console.log("erreur en récupérant les infos d'Osmose : " + err)
-                popup.innerHTML = "Impossible de récupérer le détail de cette erreur :( Réessayez plus tard !"
+                popup_element.update("Impossible de récupérer le détail de cette erreur :( Réessayez plus tard !")
             }
         }
 
