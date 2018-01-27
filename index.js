@@ -287,10 +287,276 @@ map.on('load', function() {
 
     }
 
+    // issues : 2140_21402
+    if (osmose_issues_to_display === '2140_21402' || osmose_issues_to_display === 'all' || osmose_issues_to_display === 'line_info') {
+        map.addLayer({
+            "id": "issues_2140_21402",
+            "type": "symbol",
+            "source": {
+                'type': 'vector',
+                "tiles": ["https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?item=2140&class=21402"],
+                "attribution": "Osmose",
+                "minzoom": 12
+            },
+            "source-layer": "issues",
+            "layout": {
+                "icon-image": "{item}"
+            }
+        });
+
+        change_cursor_under_the_mouse("issues_2140_21402");
+
+        map.on('click', 'issues_2140_21402', issues_2140_21402)
+        async function issues_2140_21402(e) {
+            console.log("osmose 2140 - 21402 - tag network manquant sur une relation pt")
+            map.flyTo({
+                center: e.features[0].geometry.coordinates,
+                zoom: 18
+            });
+            popup_element.init()
+            var popup_content = "<b> Réseau de transport manquant </b></br>"
+            popup_content += "Le réseau de transport n'est pas indiqué pour cette ligne."
+
+            var item_id = e.features[0]['properties']['item'];
+            try {
+                var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+                var osmose_response = await fetch(osmose_url);
+                var osmose_data = await osmose_response.json();
+                popup_element.update(popup_content)
+
+                elem = osmose_data['elems'][0]
+                if (elem['type'] == 'relation') {
+                    tags = {}
+                    for (var i = 0; i < elem['tags'].length; i++) {
+                        tag = elem['tags'][i]
+                        tags[tag['k']] = tag['v']
+                    }
+                    popup_content += create_pt_relation_tags_table(tags)
+                    var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+                    popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+                }
+
+                popup_content += `<p><b>Comment corriger ?</b>
+                <br>Rechercher le nom du réseau (sur les informations affichées sur le prospectus papier,
+                <br>dans le bus/train/etc, aux arrêts, le site Internet de l'opérateur, etc).
+                <br>Si la ligne existe bien, ajouter le nom du réseau dans le tag network de la relation.
+                </p>
+                `
+                popup_element.update(popup_content)
+
+            } catch (err) {
+                console.log("erreur en récupérant les infos d'Osmose : " + err)
+            }
+
+        };
+
+    }
+
+    // issues : 2140_21403
+    if (osmose_issues_to_display === '2140_21403' || osmose_issues_to_display === 'all' || osmose_issues_to_display === 'line_info') {
+        map.addLayer({
+            "id": "issues_2140_21403",
+            "type": "symbol",
+            "source": {
+                'type': 'vector',
+                "tiles": ["https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?item=2140&class=21403"],
+                "attribution": "Osmose",
+                "minzoom": 12
+            },
+            "source-layer": "issues",
+            "layout": {
+                "icon-image": "{item}"
+            }
+        });
+
+        change_cursor_under_the_mouse("issues_2140_21403");
+
+        map.on('click', 'issues_2140_21403', issues_2140_21403)
+        async function issues_2140_21403(e) {
+            console.log("osmose 2140 - 214023 - tag operator manquant sur une relation pt")
+            map.flyTo({
+                center: e.features[0].geometry.coordinates,
+                zoom: 18
+            });
+            popup_element.init()
+            var popup_content = "<b> Opérateur de transport manquant </b></br>"
+            popup_content += "Le transporteur n'est pas indiqué pour cette ligne."
+
+            var item_id = e.features[0]['properties']['item'];
+            try {
+                var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+                var osmose_response = await fetch(osmose_url);
+                var osmose_data = await osmose_response.json();
+                popup_element.update(popup_content)
+
+                elem = osmose_data['elems'][0]
+                if (elem['type'] == 'relation') {
+                    tags = {}
+                    for (var i = 0; i < elem['tags'].length; i++) {
+                        tag = elem['tags'][i]
+                        tags[tag['k']] = tag['v']
+                    }
+                    popup_content += create_pt_relation_tags_table(tags)
+                    var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+                    popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+                }
+
+                popup_content += `<p><b>Comment corriger ?</b>
+                <br>Rechercher le nom du transporteur (sur les informations affichées sur le prospectus papier,
+                <br>dans le bus/train/etc, aux arrêts, le site Internet du réseau, etc).
+                <br>Si la ligne existe bien, ajouter le nom du transporteur dans le tag operator de la relation.
+                </p>
+                `
+                popup_element.update(popup_content)
+
+            } catch (err) {
+                console.log("erreur en récupérant les infos d'Osmose : " + err)
+            }
+
+        };
+
+    }
+
+    // issues : 2140_21404
+    if (osmose_issues_to_display === '2140_21404' || osmose_issues_to_display === 'all'  || osmose_issues_to_display === 'line_info') {
+        map.addLayer({
+            "id": "issues_2140_21404",
+            "type": "symbol",
+            "source": {
+                'type': 'vector',
+                "tiles": ["https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?item=2140&class=21404"],
+                "attribution": "Osmose",
+                "minzoom": 12
+            },
+            "source-layer": "issues",
+            "layout": {
+                "icon-image": "{item}"
+            }
+        });
+
+        change_cursor_under_the_mouse("issues_2140_21404");
+
+        map.on('click', 'issues_2140_21404', issues_2140_21404)
+        async function issues_2140_21404(e) {
+            console.log("osmose 2140 - 21404 - tag ref manquant sur une relation pt")
+            map.flyTo({
+                center: e.features[0].geometry.coordinates,
+                zoom: 18
+            });
+            popup_element.init()
+            var popup_content = "<b> Code de ligne manquant </b></br>"
+            popup_content += "Le numéro n'est pas indiqué pour cette ligne."
+
+            var item_id = e.features[0]['properties']['item'];
+            try {
+                var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+                var osmose_response = await fetch(osmose_url);
+                var osmose_data = await osmose_response.json();
+                popup_element.update(popup_content)
+
+                elem = osmose_data['elems'][0]
+                if (elem['type'] == 'relation') {
+                    tags = {}
+                    for (var i = 0; i < elem['tags'].length; i++) {
+                        tag = elem['tags'][i]
+                        tags[tag['k']] = tag['v']
+                    }
+                    popup_content += create_pt_relation_tags_table(tags)
+                    var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+                    popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+                }
+
+                popup_content += `<p><b>Comment corriger ?</b>
+                <br>Rechercher le numéro de la ligne (sur les informations affichées sur le prospectus papier,
+                <br>dans le bus/train/etc, aux arrêts, le site Internet du réseau, etc).
+                <br>Si la ligne existe bien, ajouter son numéro dans le tag ref de la relation.
+                </p>
+                `
+                popup_element.update(popup_content)
+
+            } catch (err) {
+                console.log("erreur en récupérant les infos d'Osmose : " + err)
+            }
+
+        };
+
+    }
+
+    // issues : 2140_21405
+    if (osmose_issues_to_display === '2140_21405' || osmose_issues_to_display === 'all' || osmose_issues_to_display === 'line_info') {
+        map.addLayer({
+            "id": "issues_2140_21405",
+            "type": "symbol",
+            "source": {
+                'type': 'vector',
+                "tiles": ["https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?item=2140&class=21405"],
+                "attribution": "Osmose",
+                "minzoom": 12
+            },
+            "source-layer": "issues",
+            "layout": {
+                "icon-image": "{item}"
+            }
+        });
+
+        change_cursor_under_the_mouse("issues_2140_21405");
+
+        map.on('click', 'issues_2140_21405', issues_2140_21404)
+        async function issues_2140_21404(e) {
+            console.log("osmose 2140 - 21405 - tag ref manquant sur une relation pt")
+            map.flyTo({
+                center: e.features[0].geometry.coordinates,
+                zoom: 18
+            });
+            popup_element.init()
+            var popup_content = "<b> Terminus de ligne manquant(s) </b></br>"
+            popup_content += "L'origine et/ou la destination n'est pas indiquée pour cette ligne."
+
+            var item_id = e.features[0]['properties']['item'];
+            try {
+                var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+                var osmose_response = await fetch(osmose_url);
+                var osmose_data = await osmose_response.json();
+                popup_element.update(popup_content)
+
+                elem = osmose_data['elems'][0]
+                if (elem['type'] == 'relation') {
+                    tags = {}
+                    for (var i = 0; i < elem['tags'].length; i++) {
+                        tag = elem['tags'][i]
+                        tags[tag['k']] = tag['v']
+                    }
+                    popup_content += create_pt_relation_tags_table(tags)
+                    var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+                    popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+                }
+
+                popup_content += `<p><b>Comment corriger ?</b>
+                <br>Rechercher les terminus de la ligne (sur les informations affichées sur le prospectus papier,
+                <br>dans le bus/train/etc, aux arrêts, le site Internet du réseau, etc).
+                <br>Si la ligne existe bien, ajouter ses terminus dans les tags from et to de la relation.
+                </p>
+                `
+                popup_element.update(popup_content)
+
+            } catch (err) {
+                console.log("erreur en récupérant les infos d'Osmose : " + err)
+            }
+
+        };
+
+    }
+
 
     //other
-    if (osmose_issues_to_display === '2140' || osmose_issues_to_display === 'all') {
-        generic_osmose('2140', '2140')
+    if (osmose_issues_to_display === '2140_21401' || osmose_issues_to_display === 'all') {
+        generic_osmose('2140_21401', '2140', '21401')
+    }
+    if (osmose_issues_to_display === '2140_21411' || osmose_issues_to_display === 'all') {
+        generic_osmose('2140_21411', '2140', '21411')
+    }
+    if (osmose_issues_to_display === '2140_21412' || osmose_issues_to_display === 'all') {
+        generic_osmose('2140_21412', '2140', '21412')
     }
     if (osmose_issues_to_display === '8040' || osmose_issues_to_display === 'all') {
         generic_osmose('8040', '8040')
@@ -328,7 +594,7 @@ map.on('load', function() {
             });
 
             var item_id = e.features[0]['properties']['item'];
-            popup_element.init("<div class='spinner_loader'></div>")
+            popup_element.init()
 
             try {
                 var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
@@ -356,29 +622,14 @@ map.on('load', function() {
 })
 
 function get_issues_to_display_from_url() {
-    var osmose_issues = ['1260_1', '1260_2', '1260_3', '1260_4', '2140', '8040']
+    var osmose_issues = ['1260_1', '1260_2', '1260_3', '1260_4', '8040', '2140_21402', '2140_21403',
+        '2140_21404', '2140_21405', '2140_21401', '2140_21411', '2140_21412',
+        'line_info'
+    ]
     osmose_issues_to_display = get_parameter_from_url("issues")
     if (!osmose_issues.includes(osmose_issues_to_display)) {
         var osmose_issues_to_display = "all"
         console.log("Le numéro Osmose passé dans l'URL n'est pas valide, on affiche tout")
     }
     return osmose_issues_to_display
-}
-
-/* utils */
-function change_cursor_under_the_mouse(layer_name) {
-    map.on('mouseenter', layer_name, function(e) {
-        map.getCanvas().style.cursor = 'pointer';
-    });
-
-    map.on('mouseleave', layer_name, function() {
-        map.getCanvas().style.cursor = '';
-    });
-}
-
-function get_parameter_from_url(param_name) {
-    param_name = param_name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
-    var regex = new RegExp("[\\?&]" + param_name + "=([^&#]*)"),
-        results = regex.exec(location.href);
-    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
