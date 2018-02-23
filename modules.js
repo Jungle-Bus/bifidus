@@ -4,9 +4,9 @@ var popup_element = (function() {
         console.log("La div d'id popup n'existe pas")
     }
     return {
-        init: function(content) {
+        init: function() {
             popup_div.style.display = 'block';
-            popup_div.innerHTML = content || "<div class='spinner_loader'></div>"
+            popup_div.innerHTML = "<div class='spinner_loader'></div>"
         },
         remove: function() {
             if (popup_div.style.display == 'block') {

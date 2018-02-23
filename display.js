@@ -1,4 +1,4 @@
-async function display_default_osmose_infos(e) {
+async function display_default_osmose_info(e) {
     map.flyTo({
         center: e.features[0].geometry.coordinates,
         zoom: 18
@@ -8,7 +8,7 @@ async function display_default_osmose_infos(e) {
     popup_element.init()
 
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
 
@@ -40,7 +40,7 @@ async function display_info_2140_21405(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
         popup_element.update(popup_content)
@@ -83,7 +83,7 @@ async function display_info_2140_21404(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
         popup_element.update(popup_content)
@@ -126,7 +126,7 @@ async function display_info_2140_21403(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
         popup_element.update(popup_content)
@@ -168,7 +168,7 @@ async function display_info_2140_21402(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
         popup_element.update(popup_content)
@@ -205,11 +205,11 @@ async function display_info_1260_4(e) {
     });
     var popup_content = "<b>Ce trajet n'est rattaché à aucune ligne !</b></br>"
 
-    popup_element.init(popup_content)
+    popup_element.init()
     var item_id = e.features[0]['properties']['item'];
 
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
 
@@ -276,10 +276,10 @@ async function display_info_1260_3(e) {
     popup_content += "Il s'agit d'une relation modélisant une ligne de transport, elle ne devrait contenir que des relations de type route.<br>"
     popup_content += "Il faut vérifier les objets membres de cette relation."
 
-    popup_element.init(popup_content)
+    popup_element.init()
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
 
@@ -305,10 +305,10 @@ async function display_info_1260_1(e) {
     var popup_content = "<b>Le trajet de cette ligne contient des trous </b></br>"
     popup_content += "Le tracé est sûrement incomplet, ou erroné."
 
-    popup_element.init(popup_content)
+    popup_element.init()
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
 
@@ -334,11 +334,11 @@ async function display_info_1260_2(e) {
     var popup_content = "<b>Cet arrêt est trop éloigné du trajet de cette ligne </b></br>"
     popup_content += "Soit le tracé est incomplet, ou erroné, soit l'arrêt ne fait pas partie du trajet de cette ligne"
 
-    popup_element.init(popup_content)
+    popup_element.init()
     var item_id = e.features[0]['properties']['item'];
 
     try {
-        var osmose_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/" + e.features[0].properties.issue_id
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
         var osmose_response = await fetch(osmose_url);
         var osmose_data = await osmose_response.json();
 
