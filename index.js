@@ -17,6 +17,8 @@ map.addControl(new mapboxgl.GeolocateControl({
 
 var osmose_filter = get_issues_to_display_from_url()
 var osmose_base_api_url = 'https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/'
+var zoom_div = document.getElementById('zoom-overlay');
+
 
 map.on('load', function() {
     map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-3010.png', function(error, image) {
@@ -42,7 +44,18 @@ map.on('load', function() {
     create_osmose_layer(osmose_filter);
     map.on('click', "issues_osmose", display_info);
 
+    map.on('zoom', check_if_notify_user);
+    check_if_notify_user()
 })
+
+function check_if_notify_user(){
+    var current_zoom = map.getZoom();
+    if (current_zoom > 13){
+        zoom_div.style.display = 'none';
+    } else {
+        zoom_div.style.display = 'block';
+    }
+}
 
 function get_issues_to_display_from_url() {
     var osmose_issues = ['1260_1', '1260_2', '1260_3', '1260_4', '8040', '2140_21402', '2140_21403',
