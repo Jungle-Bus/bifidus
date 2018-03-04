@@ -65,29 +65,23 @@ function get_parameter_from_url(param_name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-function create_layer(osmose_name) {
+function create_osmose_layer(osmose_filter) {
     var osmose_tiles_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?";
-    var osmose_name_array = osmose_name.split("_");
-    var osmose_item = osmose_name_array[0];
-    var osmose_class = (osmose_name_array.length > 1) ? osmose_name_array[1] : false;
-    osmose_tiles_url += "item=" + osmose_item
-    if (osmose_class) {
-        osmose_tiles_url += "&class=" + osmose_class
-    }
+    osmose_tiles_url += "item=1260,2140,8040"
+
     map.addLayer({
-        "id": "issues_" + osmose_name,
+        "id": "issues_osmose",
         "type": "symbol",
         "source": {
             'type': 'vector',
             "tiles": [osmose_tiles_url],
-            "attribution": "Osmose",
-            "minzoom": 12
+            "attribution": "Osmose"
         },
         "source-layer": "issues",
+        "filter": osmose_filter,
         "layout": {
             "icon-image": "{item}"
         }
     });
-
-    change_cursor_under_the_mouse("issues_" + osmose_name);
+    change_cursor_under_the_mouse("issues_osmose");
 }

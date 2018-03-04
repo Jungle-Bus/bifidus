@@ -1,9 +1,4 @@
-async function display_default_osmose_info(e) {
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
-
+async function create_default_popup(e) {
     var item_id = e.features[0]['properties']['item'];
     popup_element.init()
 
@@ -28,12 +23,8 @@ async function display_default_osmose_info(e) {
     }
 }
 
-async function display_info_2140_21405(e) {
+async function create_popup_2140_21405(e) {
     console.log("osmose 2140 - 21405 - tag ref manquant sur une relation pt")
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
     popup_element.init()
     var popup_content = "<b> Terminus de ligne manquant(s) </b></br>"
     popup_content += "L'origine et/ou la destination n'est pas indiquée pour cette ligne."
@@ -71,12 +62,8 @@ async function display_info_2140_21405(e) {
 
 };
 
-async function display_info_2140_21404(e) {
+async function create_popup_2140_21404(e) {
     console.log("osmose 2140 - 21404 - tag ref manquant sur une relation pt")
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
     popup_element.init()
     var popup_content = "<b> Code de ligne manquant </b></br>"
     popup_content += "Le numéro n'est pas indiqué pour cette ligne."
@@ -114,12 +101,8 @@ async function display_info_2140_21404(e) {
 
 };
 
-async function display_info_2140_21403(e) {
+async function create_popup_2140_21403(e) {
     console.log("osmose 2140 - 214023 - tag operator manquant sur une relation pt")
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
     popup_element.init()
     var popup_content = "<b> Opérateur de transport manquant </b></br>"
     popup_content += "Le transporteur n'est pas indiqué pour cette ligne."
@@ -156,12 +139,8 @@ async function display_info_2140_21403(e) {
     }
 };
 
-async function display_info_2140_21402(e) {
+async function create_popup_2140_21402(e) {
     console.log("osmose 2140 - 21402 - tag network manquant sur une relation pt")
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
     popup_element.init()
     var popup_content = "<b> Réseau de transport manquant </b></br>"
     popup_content += "Le réseau de transport n'est pas indiqué pour cette ligne."
@@ -198,11 +177,7 @@ async function display_info_2140_21402(e) {
     }
 };
 
-async function display_info_1260_4(e) {
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
+async function create_popup_1260_4(e) {
     var popup_content = "<b>Ce trajet n'est rattaché à aucune ligne !</b></br>"
 
     popup_element.init()
@@ -267,11 +242,7 @@ async function display_info_1260_4(e) {
     }
 };
 
-async function display_info_1260_3(e) {
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
+async function create_popup_1260_3(e) {
     var popup_content = "<b>La relation “route_master” n'est pas conforme </b></br>"
     popup_content += "Il s'agit d'une relation modélisant une ligne de transport, elle ne devrait contenir que des relations de type route.<br>"
     popup_content += "Il faut vérifier les objets membres de cette relation."
@@ -297,11 +268,7 @@ async function display_info_1260_3(e) {
     }
 };
 
-async function display_info_1260_1(e) {
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
+async function create_popup_1260_1(e) {
     var popup_content = "<b>Le trajet de cette ligne contient des trous </b></br>"
     popup_content += "Le tracé est sûrement incomplet, ou erroné."
 
@@ -326,11 +293,7 @@ async function display_info_1260_1(e) {
     }
 };
 
-async function display_info_1260_2(e) {
-    map.flyTo({
-        center: e.features[0].geometry.coordinates,
-        zoom: 18
-    });
+async function create_popup_1260_2(e) {
     var popup_content = "<b>Cet arrêt est trop éloigné du trajet de cette ligne </b></br>"
     popup_content += "Soit le tracé est incomplet, ou erroné, soit l'arrêt ne fait pas partie du trajet de cette ligne"
 
@@ -356,3 +319,17 @@ async function display_info_1260_2(e) {
         console.log("erreur en récupérant les infos d'Osmose : " + err)
     }
 };
+
+function display_info(e) {
+    map.flyTo({
+        center: e.features[0].geometry.coordinates,
+        zoom: 18
+    });
+    var osmose_name = e.features[0]['properties']['item'] + '_' + e.features[0]['properties']['class'];
+    var create_popup = window["create_popup_" + osmose_name];
+    if (typeof create_popup === "function") {
+        create_popup(e)
+    } else {
+        create_default_popup(e)
+    }
+}
