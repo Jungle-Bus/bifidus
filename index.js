@@ -15,7 +15,7 @@ map.addControl(new mapboxgl.GeolocateControl({
     trackUserLocation: true
 }));
 
-var osmose_filter = get_issues_to_display_from_url()
+var osmose_issues = get_issues_to_display_from_url()
 var osmose_base_api_url = 'https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/api/0.2/error/'
 var zoom_div = document.getElementById('zoom-overlay');
 
@@ -41,16 +41,16 @@ map.on('load', function() {
 
     map.on('click', popup_element.remove);
 
-    create_osmose_layer(osmose_filter);
+    create_osmose_layer(osmose_issues);
     map.on('click', "issues_osmose", display_info);
 
     map.on('zoom', check_if_notify_user);
     check_if_notify_user()
 })
 
-function check_if_notify_user(){
+function check_if_notify_user() {
     var current_zoom = map.getZoom();
-    if (current_zoom > 13){
+    if (current_zoom > 13) {
         zoom_div.style.display = 'none';
     } else {
         zoom_div.style.display = 'block';
@@ -68,25 +68,5 @@ function get_issues_to_display_from_url() {
         console.log("Le numéro Osmose passé dans l'URL n'est pas valide, on affiche tout")
     }
 
-
-    if (osmose_issues_to_display == 'all') {
-        var filter = ["all"]
-    } else if (osmose_issues_to_display == 'line_info') {
-        var filter = [
-            "all", ["==", "item", 2140],
-            ["in", "class", 21402, 21403, 21404, 21405]
-        ]
-    } else if (osmose_issues_to_display == '8040') {
-        var filter = ["all", ["==", "item", 8040]]
-    } else {
-        var osmose_name_array = osmose_issues_to_display.split("_");
-        var item = parseInt(osmose_name_array[0]);
-        var class_ = parseInt(osmose_name_array[1]);
-        var filter = [
-            "all", ["==", "item", item],
-            ["==", "class", class_]
-        ]
-    }
-
-    return filter
+    return osmose_issues_to_display
 }

@@ -65,9 +65,33 @@ function get_parameter_from_url(param_name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-function create_osmose_layer(osmose_filter) {
+function create_osmose_layer(osmose_issues) {
     var osmose_tiles_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?";
-    osmose_tiles_url += "item=1260,2140,8040"
+
+    if (osmose_issues == 'all') {
+        var osmose_items = '2140,8040,1260';
+        var filter = ["all"];
+    } else if (osmose_issues == 'line_info') {
+        var filter = [
+            "all", ["==", "item", 2140],
+            ["in", "class", 21402, 21403, 21404, 21405]
+        ];
+        var osmose_items = '2140';
+    } else if (osmose_issues_to_display == '8040') {
+        var osmose_items = '8040';
+        var filter = ["all", ["==", "item", 8040]]
+    } else {
+        var osmose_name_array = osmose_issues_to_display.split("_");
+        var item = osmose_name_array[0];
+        var class_ = osmose_name_array[1];
+        var osmose_items = osmose_name_array[0];
+        var filter = [
+            "all", ["==", "item", parseInt(item)],
+            ["==", "class", parseInt(class_)]
+        ]
+    }
+
+    osmose_tiles_url += "item=" + osmose_items;
 
     map.addLayer({
         "id": "issues_osmose",
@@ -78,7 +102,7 @@ function create_osmose_layer(osmose_filter) {
             "attribution": "Osmose"
         },
         "source-layer": "issues",
-        "filter": osmose_filter,
+        "filter": filter,
         "layout": {
             "icon-image": "{item}"
         }
