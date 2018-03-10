@@ -27,6 +27,20 @@
                 border-top-right-radius: 15px;
                 display: none;
             }
+            .zoom-overlay {
+                font: 14px/20px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+                position: absolute;
+                background-color: #fff;
+                z-index: 12;
+                up: 0;
+                left: 0;
+                opacity: 0.9;
+                padding: 10px;
+                box-sizing: border-box;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                display: block;
+            }
 
             @media screen and (max-width: 480px) {
                 .map-overlay {
@@ -67,6 +81,7 @@
     <body>
         <div id='map'></div>
         <div class='map-overlay' id='popup'></div>
+        <div class='zoom-overlay' id='zoom-overlay'>Zoomez encore un peu pour voir toutes les erreurs ;)</div>
         <script src="display.js"></script>
         <script src="modules.js"></script>
         <script src="index.js"></script>
