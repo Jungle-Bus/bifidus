@@ -2,9 +2,9 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'glstyle.json',
     center: [
-        2.4067, 48.7031
+        2.3784, 48.851
     ],
-    zoom: 14,
+    zoom: 12,
     hash: true
 });
 map.addControl(new mapboxgl.NavigationControl());
@@ -27,7 +27,7 @@ map.on('load', function() {
         map.addImage('8040', image);
     });
 
-    map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-0.png', function(error, image) {
+    map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-1070.png', function(error, image) {
         if (error)
             throw error;
         map.addImage('2140', image);

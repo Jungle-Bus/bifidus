@@ -3,14 +3,44 @@
 
     <head>
         <meta charset='utf-8'/>
-        <title>Bidifus, improve your transit</title>
+        <title>Bidifus, improve your transit !</title>
         <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no'/>
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.css' rel='stylesheet'/>
         <style>
-            body {
+            body,
+            html {
                 margin: 0;
                 padding: 0;
+                height: 100%;
+            }
+
+            header {
+                height: 60px;
+                padding-left: 10px;
+                padding-right: 10px;
+                background-color: #0267b1;
+                color: white;
+            }
+            .title {
+                padding-top: 5px;
+            }
+
+            main {
+                height: calc(100vh - 60px);
+            }
+            #map {
+
+                width: 100%;
+                height: 100%;
+
+            }
+            nav {
+                float: right;
+            }
+            .logo {
+                float: left;
+                margin-right: 10px;
             }
 
             .map-overlay {
@@ -32,13 +62,15 @@
                 position: absolute;
                 background-color: #fff;
                 z-index: 12;
-                up: 0;
+                top: 70px;
                 left: 0;
                 opacity: 0.9;
                 padding: 10px;
                 box-sizing: border-box;
                 border-top-left-radius: 15px;
                 border-top-right-radius: 15px;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
                 display: block;
             }
 
@@ -52,8 +84,8 @@
 
             /* spinner */
             .spinner_loader {
-                border: 16px solid #f3f3f3;
-                border-top: 16px solid green;
+                border: 16px solid #fbb81d;
+                border-top: 16px solid white;
                 border-radius: 50%;
                 width: 70px;
                 height: 70px;
@@ -68,20 +100,23 @@
                     transform: rotate(360deg);
                 }
             }
-
-            #map {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                width: 100%;
-            }
         </style>
     </head>
 
     <body>
-        <div id='map'></div>
-        <div class='map-overlay' id='popup'></div>
-        <div class='zoom-overlay' id='zoom-overlay'>Zoomez encore un peu pour voir toutes les erreurs ;)</div>
+        <header id="header">
+            <img src="logo_bifidus_header.png" alt="logo" height="60" width="90" class="logo">
+            <div class="title">
+                <b>Bifidus</b>
+                <br>Improve your transit !
+            </div>
+            <!--<nav> <a>À Propos</a> </nav>-->
+        </header>
+        <main>
+            <div id='map'></div>
+            <div class='map-overlay' id='popup'></div>
+            <div class='zoom-overlay' id='zoom-overlay'>Zoomez encore un peu pour voir toutes les erreurs ;)</div>
+        </main>
         <script src="display.js"></script>
         <script src="modules.js"></script>
         <script src="index.js"></script>
