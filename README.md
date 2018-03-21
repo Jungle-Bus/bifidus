@@ -1,5 +1,18 @@
 # Bifidus
-
-A new website to handle Osmose issues about public transport
+### Improve your transit
 
 ![logo](logo_bifidus.png)
+
+This is a quality assurance tool for transit data in OpenStreetMap.
+
+![demo](demo.gif)
+
+## License
+
+This project is developed by the [Jungle Bus](http://junglebus.io/) team, a French non-profit organization dedicated to bus public transport in OpenStreetMap.
+
+It uses [Osmose](http://osmose.openstreetmap.fr/) issues about public transport as a data source.
+
+The code in this repository is under the MIT license.
+
+If you value this work, show your support by donating to the [OSM French local chapter](http://openstreetmap.fr).
