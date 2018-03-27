@@ -74,7 +74,7 @@ function create_osmose_layer(osmose_issues) {
     } else if (osmose_issues == 'line_info') {
         var filter = [
             "all", ["==", "item", 9014],
-            ["in", "class", 9014015, 9014016, 9014017, 9014018]
+            ["in", "class", 9014009, 9014010, 9014013, 9014014, 9014015, 9014016, 9014017, 9014018]
         ];
         var osmose_items = '9014';
         /*var filter = [
