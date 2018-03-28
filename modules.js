@@ -73,15 +73,10 @@ function create_osmose_layer(osmose_issues) {
         var filter = ["all"];
     } else if (osmose_issues == 'line_info') {
         var filter = [
-            "all", ["==", "item", 9014],
-            ["in", "class", 9014009, 9014010, 9014013, 9014014, 9014015, 9014016, 9014017, 9014018]
+            "all", ["in", "item", 9014, 2140],
+            ["in", "class", 21402, 21403, 21404, 21405, 9014009, 9014010, 9014013, 9014014]
         ];
-        var osmose_items = '9014';
-        /*var filter = [
-            "all", ["==", "item", 2140],
-            ["in", "class", 21402, 21403, 21404, 21405]
-        ];
-        var osmose_items = '9014';*/
+        var osmose_items = '2140,9014';
     } else if (osmose_issues == '8040') {
         var osmose_items = '8040';
         var filter = ["all", ["==", "item", 8040]]
