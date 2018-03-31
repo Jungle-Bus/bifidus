@@ -8,6 +8,10 @@
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.js'></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.42.2/mapbox-gl.css' rel='stylesheet'/>
         <style>
+            @font-face {
+                font-family: "din";
+                src: url("fonts/din-BoldAlternate.otf") format("opentype");
+            }
             body,
             html {
                 margin: 0;
@@ -19,8 +23,10 @@
                 height: 60px;
                 padding-left: 10px;
                 padding-right: 10px;
-                background-color: #0267b1;
-                color: white;
+                background-color: #fbb81d;
+                color: #0267b1;
+                font-size: 20px;
+                font-family: 'din', 'arial';
             }
             .title {
                 padding-top: 5px;
@@ -107,8 +113,9 @@
         <header id="header">
             <img src="logo_bifidus_header.png" alt="logo" height="60" width="90" class="logo">
             <div class="title">
-                <b>Bifidus</b>
-                <br>Improve your transit !
+                Bifidus
+                <br>
+                <small>Improve your transit !</small>
             </div>
             <!--<nav> <a>À Propos</a> </nav>-->
         </header>
