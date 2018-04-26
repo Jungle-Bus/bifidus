@@ -23,8 +23,9 @@ async function create_default_popup(e) {
     }
 }
 
+var create_popup_9014_9014018 = create_popup_2140_21405;
 async function create_popup_2140_21405(e) {
-    console.log("osmose 2140 - 21405 - tag ref manquant sur une relation pt")
+    console.log("osmose 2140_21405 ou 9014_9014018 - tag from/to manquant sur une relation pt")
     popup_element.init()
     var popup_content = "<b> Terminus de ligne manquant(s) </b></br>"
     popup_content += "L'origine et/ou la destination n'est pas indiquée pour cette ligne."
@@ -62,8 +63,9 @@ async function create_popup_2140_21405(e) {
 
 };
 
+var create_popup_9014_9014017 = create_popup_2140_21404;
 async function create_popup_2140_21404(e) {
-    console.log("osmose 2140 - 21404 - tag ref manquant sur une relation pt")
+    console.log("osmose 2140_21404 ou 9014_9014017 - tag ref manquant sur une relation pt")
     popup_element.init()
     var popup_content = "<b> Code de ligne manquant </b></br>"
     popup_content += "Le numéro n'est pas indiqué pour cette ligne."
@@ -101,8 +103,9 @@ async function create_popup_2140_21404(e) {
 
 };
 
+var create_popup_9014_9014016 = create_popup_2140_21403;
 async function create_popup_2140_21403(e) {
-    console.log("osmose 2140 - 214023 - tag operator manquant sur une relation pt")
+    console.log("osmose 2140_21403 ou 9014_9014016 - tag operator manquant sur une relation pt")
     popup_element.init()
     var popup_content = "<b> Opérateur de transport manquant </b></br>"
     popup_content += "Le transporteur n'est pas indiqué pour cette ligne."
@@ -139,8 +142,9 @@ async function create_popup_2140_21403(e) {
     }
 };
 
+var create_popup_9014_9014015 = create_popup_2140_21402;
 async function create_popup_2140_21402(e) {
-    console.log("osmose 2140 - 21402 - tag network manquant sur une relation pt")
+    console.log("osmose 2140_21402 ou 9014_9014015 - tag network manquant sur une relation pt")
     popup_element.init()
     var popup_content = "<b> Réseau de transport manquant </b></br>"
     popup_content += "Le réseau de transport n'est pas indiqué pour cette ligne."
@@ -176,6 +180,158 @@ async function create_popup_2140_21402(e) {
         console.log("erreur en récupérant les infos d'Osmose : " + err)
     }
 };
+
+async function create_popup_9014_9014009(e) {
+    console.log("osmose 9014_9014009 - tag route manquant sur une relation pt")
+    popup_element.init()
+    var popup_content = "<b> Mode de transport manquant </b></br>"
+    popup_content += "Le mode de transport n'est pas indiqué pour cette ligne."
+
+    var item_id = e.features[0]['properties']['item'];
+    try {
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
+        var osmose_response = await fetch(osmose_url);
+        var osmose_data = await osmose_response.json();
+        popup_element.update(popup_content)
+
+        elem = osmose_data['elems'][0]
+        if (elem['type'] == 'relation') {
+            tags = {}
+            for (var i = 0; i < elem['tags'].length; i++) {
+                tag = elem['tags'][i]
+                tags[tag['k']] = tag['v']
+            }
+            popup_content += create_pt_relation_tags_table(tags)
+            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+        }
+
+        popup_content += `<p><b>Comment corriger ?</b>
+        <br>S'agit-il d'une ligne de bus ? de train ? de tram ?
+        <br>Si la ligne existe bien, ajouter le mode de transport dans le tag route de la relation.
+        </p>
+        `
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+};
+
+async function create_popup_9014_9014010(e) {
+    console.log("osmose 9014_9014010 - tag route_master manquant sur une relation pt")
+    popup_element.init()
+    var popup_content = "<b> Mode de transport manquant </b></br>"
+    popup_content += "Le mode de transport n'est pas indiqué pour cette ligne."
+
+    var item_id = e.features[0]['properties']['item'];
+    try {
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
+        var osmose_response = await fetch(osmose_url);
+        var osmose_data = await osmose_response.json();
+        popup_element.update(popup_content)
+
+        elem = osmose_data['elems'][0]
+        if (elem['type'] == 'relation') {
+            tags = {}
+            for (var i = 0; i < elem['tags'].length; i++) {
+                tag = elem['tags'][i]
+                tags[tag['k']] = tag['v']
+            }
+            popup_content += `<br>Il s'agit surement d'un ${tags['route']}.`
+            popup_content += create_pt_relation_tags_table(tags)
+            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+        }
+
+        popup_content += `<p><b>Comment corriger ?</b>
+        <br>S'agit-il d'une ligne de bus ? de train ? de tram ?
+        <br>Si la ligne existe bien, ajouter le mode de transport dans le tag route de la relation.
+        </p>
+        `
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+};
+
+async function create_popup_9014_9014013(e) {
+    console.log("osmose 9014_9014013 - tag operator invalide");
+    popup_element.init()
+    var popup_content = "<b> Opérateur de transport invalide </b></br>"
+    popup_content += "Ce transporteur n'existe pas."
+
+    var item_id = e.features[0]['properties']['item'];
+    try {
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
+        var osmose_response = await fetch(osmose_url);
+        var osmose_data = await osmose_response.json();
+        popup_element.update(popup_content)
+
+        elem = osmose_data['elems'][0]
+        if (elem['type'] == 'relation') {
+            tags = {}
+            for (var i = 0; i < elem['tags'].length; i++) {
+                tag = elem['tags'][i]
+                tags[tag['k']] = tag['v']
+            }
+            popup_content += create_pt_relation_tags_table(tags)
+            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+        }
+
+        popup_content += `<p><b>Comment corriger ?</b>
+        <br>Rechercher le nom du transporteur (sur les informations affichées sur le prospectus papier,
+        <br>dans le bus/train/etc, aux arrêts, le site Internet de l'opérateur, etc).
+        <br>Puis, corriger le nom du transporteur (tag operator de la relation).
+        </p>
+        `
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+};
+
+async function create_popup_9014_9014014(e) {
+    console.log("osmose 9014_9014014 - tag network invalide");
+    popup_element.init()
+    var popup_content = "<b> Réseau de transport invalide </b></br>"
+    popup_content += "Ce réseau de transport n'existe pas."
+
+    var item_id = e.features[0]['properties']['item'];
+    try {
+        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
+        var osmose_response = await fetch(osmose_url);
+        var osmose_data = await osmose_response.json();
+        popup_element.update(popup_content)
+
+        elem = osmose_data['elems'][0]
+        if (elem['type'] == 'relation') {
+            tags = {}
+            for (var i = 0; i < elem['tags'].length; i++) {
+                tag = elem['tags'][i]
+                tags[tag['k']] = tag['v']
+            }
+            popup_content += create_pt_relation_tags_table(tags)
+            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+        }
+
+        popup_content += `<p><b>Comment corriger ?</b>
+        <br>Rechercher le nom du réseau (sur les informations affichées sur le prospectus papier,
+        <br>dans le bus/train/etc, aux arrêts, le site Internet de l'opérateur, etc).
+        <br>Puis, corriger le nom du réseau (tag network de la relation).
+        </p>
+        `
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+};
+
 
 async function create_popup_1260_4(e) {
     var popup_content = "<b>Ce trajet n'est rattaché à aucune ligne !</b></br>"

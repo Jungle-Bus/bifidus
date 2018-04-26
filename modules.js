@@ -69,19 +69,19 @@ function create_osmose_layer(osmose_issues) {
     var osmose_tiles_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?";
 
     if (osmose_issues == 'all') {
-        var osmose_items = '2140,8040,1260';
+        var osmose_items = '2140,8040,1260,9014';
         var filter = ["all"];
     } else if (osmose_issues == 'line_info') {
         var filter = [
-            "all", ["==", "item", 2140],
-            ["in", "class", 21402, 21403, 21404, 21405]
+            "all", ["in", "item", 9014, 2140],
+            ["in", "class", 21402, 21403, 21404, 21405, 9014009, 9014010, 9014013, 9014014]
         ];
-        var osmose_items = '2140';
-    } else if (osmose_issues_to_display == '8040') {
+        var osmose_items = '2140,9014';
+    } else if (osmose_issues == '8040') {
         var osmose_items = '8040';
         var filter = ["all", ["==", "item", 8040]]
     } else {
-        var osmose_name_array = osmose_issues_to_display.split("_");
+        var osmose_name_array = osmose_issues.split("_");
         var item = osmose_name_array[0];
         var class_ = osmose_name_array[1];
         var osmose_items = osmose_name_array[0];
