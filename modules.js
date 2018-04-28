@@ -66,7 +66,7 @@ function get_parameter_from_url(param_name) {
 }
 
 function create_osmose_layer(osmose_issues) {
-    var osmose_tiles_url = "https://cors.5apps.com/?uri=http://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?";
+    var osmose_tiles_url = "https://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?";
 
     if (osmose_issues == 'all') {
         var osmose_items = '2140,8040,1260,9014';
