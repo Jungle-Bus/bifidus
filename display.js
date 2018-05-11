@@ -479,7 +479,6 @@ async function create_popup_1260_2(e) {
 function display_info(e) {
     map.flyTo({
         center: e.features[0].geometry.coordinates,
-        zoom: 18
     });
     var osmose_name = e.features[0]['properties']['item'] + '_' + e.features[0]['properties']['class'];
     var create_popup = window["create_popup_" + osmose_name];
