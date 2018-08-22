@@ -19,6 +19,21 @@ var popup_element = (function() {
     }
 }());
 
+var osmose_client = (function() {
+    /*
+        for now, we only fetch single error and this few lines should do the trick
+        in the future, we may switch to https://github.com/osmlab/osmose-request
+    */
+    const osmose_base_api_url = 'https://osmose.openstreetmap.fr/fr/api/0.2/error/'
+    return {
+        fetchError: async function(osmose_id) {
+            var osmose_url = osmose_base_api_url + osmose_id
+            var osmose_response = await fetch(osmose_url);
+            var osmose_data = await osmose_response.json();
+            return osmose_data
+        }
+    }
+}());
 
 function create_pt_relation_tags_table(tags) {
     if (tags['type'] == 'route') {

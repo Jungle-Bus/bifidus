@@ -16,9 +16,7 @@ map.addControl(new mapboxgl.GeolocateControl({
 }));
 
 var osmose_issues = get_issues_to_display_from_url()
-var osmose_base_api_url = 'https://osmose.openstreetmap.fr/fr/api/0.2/error/'
 var zoom_div = document.getElementById('zoom-overlay');
-
 
 map.on('load', function() {
     map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-3010.png', function(error, image) {

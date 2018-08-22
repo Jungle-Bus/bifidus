@@ -3,9 +3,7 @@ async function create_default_popup(e) {
     popup_element.init()
 
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
 
         var popup_content = "<b>" + osmose_data['title'] + "</b><br/>"
         popup_content += osmose_data['subtitle']
@@ -32,9 +30,7 @@ async function create_popup_2140_21405(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -72,9 +68,7 @@ async function create_popup_2140_21404(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -112,9 +106,7 @@ async function create_popup_2140_21403(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -151,9 +143,7 @@ async function create_popup_2140_21402(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -189,9 +179,7 @@ async function create_popup_9014_9014009(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -226,9 +214,7 @@ async function create_popup_9014_9014010(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -264,9 +250,7 @@ async function create_popup_9014_9014013(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -302,9 +286,7 @@ async function create_popup_9014_9014014(e) {
 
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -340,10 +322,7 @@ async function create_popup_1260_4(e) {
     var item_id = e.features[0]['properties']['item'];
 
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
-
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
 
         var network,
             operator,
@@ -406,9 +385,7 @@ async function create_popup_1260_3(e) {
     popup_element.init()
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
 
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
@@ -431,9 +408,7 @@ async function create_popup_1260_1(e) {
     popup_element.init()
     var item_id = e.features[0]['properties']['item'];
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
 
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
@@ -457,9 +432,7 @@ async function create_popup_1260_2(e) {
     var item_id = e.features[0]['properties']['item'];
 
     try {
-        var osmose_url = osmose_base_api_url + e.features[0].properties.issue_id
-        var osmose_response = await fetch(osmose_url);
-        var osmose_data = await osmose_response.json();
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
 
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
