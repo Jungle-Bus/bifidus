@@ -30,11 +30,11 @@
     "sources": {
         "openmaptiles": {
             "type": "vector",
-            "url": "https://free.tilehosting.com/data/v3.json?key=l6rAMndj64l3TkAt8RDB"
+            "url": "https://api.maptiler.com/tiles/v3/tiles.json?key=l6rAMndj64l3TkAt8RDB"
         }
     },
-    "sprite": "https://openmaptiles.github.io/osm-bright-gl-style/sprite",
-    "glyphs": "https://free.tilehosting.com/fonts/{fontstack}/{range}.pbf?key=l6rAMndj64l3TkAt8RDB",
+    "sprite": "https://api.maptiler.com/maps/positron/sprite",
+    "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=l6rAMndj64l3TkAt8RDB",
     "layers": [{
             "id": "background",
             "type": "background",
