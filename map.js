@@ -75,7 +75,10 @@ function get_issues_to_display_from_url() {
         '9014_9014011','9014_9014012', '9014_9014013', '9014_9014014', '9014_9014015',
         '9014_9014016','9014_9014017', '9014_9014018',
         '8040', '8042_1', '8042_2',
-        'line_info'
+        'line_info',
+        'stop_info',
+        'geometry',
+        'structural'
     ]
     osmose_issues_to_display = get_parameter_from_url("issues")
     if (!osmose_issues.includes(osmose_issues_to_display)) {

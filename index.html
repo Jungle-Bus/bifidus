@@ -12,22 +12,66 @@
 
     <body>
         <header id="header">
-            <img src="logo_bifidus_header.png" alt="logo" height="60" width="90" class="logo">
+            <a href="index.html">
+                <img src="logo_bifidus_header.png" alt="logo" height="60" width="90" class="logo">
+            </a>
             <div class="title">
                 Bifidus
                 <br>
                 <small>Improve your transit !</small>
             </div>
-            <!--<nav> <a>À Propos</a> </nav>-->
+
         </header>
         <main>
-            <div id='map'></div>
-            <div class='map-overlay' id='popup'></div>
-            <div class='zoom-overlay' id='zoom-overlay'>Zoomez encore un peu pour voir toutes les erreurs ;)</div>
+            <section>
+                <p>
+                    Vous avez cartographié votre réseau de transport dans OpenStreetMap et vous voulez vous assurer qu'il est utilisable par le plus grand nombre, que ce soit pour faire un plan géographique, une carte schématique ou encore du calcul d'itinéraire ou de
+                    l'information voyageur ? Pas de panique, Bifidus vous aide à trouver les points d'amélioration pour que ces données soient utilisables !
+                </p>
+                <p>
+                    <a href="map.html">Voir toutes les erreurs à corriger</a>
+                </p>
+            </section>
+            <div class="row">
+                <section class="column">
+                    <h2>Erreurs structurelles</h2>
+                    <p>
+                        Il s'agit des erreurs sur le schéma de transport (aussi appelé ptv2). Ces erreurs empêchent de trouver les lignes et les arrêts que vous avez cartographiées et sont donc à corriger en premier.
+                    </p>
+                    <p>
+                        <a href="map.html?issues=structural">Voir ces erreurs</a>
+                    </p>
+                </section>
+                <section class="column">
+                    <h2>Erreurs de géométrie</h2>
+                    <p>
+                        Il s'agit d'erreurs sur les tracés des lignes ou l'ordre des arrêts. Corrigez-les pour avoir des plus jolies cartes ;)
+                    </p>
+                    <p>
+                        <a href="map.html?issues=geometry">Voir ces erreurs</a>
+                    </p>
+                </section>
+            </div>
+            <div class="row">
+                <section class="column">
+                    <h2>Erreurs sur les informations des lignes</h2>
+                    <p>
+                        Il s'agit d'erreurs sur les métadonnées des lignes et des parcours. Corrigez-les pour pouvoir retrouver et reconnaitre vos lignes sur tous les supports.
+                    </p>
+                    <p>
+                        <a href="map.html?issues=line_info">Voir ces erreurs</a>
+                    </p>
+                </section>
+                <section class="column">
+                    <h2>Erreurs sur les informations des arrêts</h2>
+                    <p>
+                        Il s'agit d'erreurs sur les métadonnées des arrêts. Corrigez-les pour trouver les arrêts près de chez vous.
+                    </p>
+                    <p>
+                        <a href="map.html?issues=stop_info">Voir ces erreurs</a>
+                    </p>
+                </section>
+            </div>
         </main>
-        <script src="display.js"></script>
-        <script src="modules.js"></script>
-        <script src="index.js"></script>
     </body>
-
 </html>
