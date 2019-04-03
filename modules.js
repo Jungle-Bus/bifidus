@@ -88,10 +88,29 @@ function create_osmose_layer(osmose_issues) {
         var filter = ["all"];
     } else if (osmose_issues == 'line_info') {
         var filter = [
+            //manque le 1260_5 qui devrait aussi être dans cette catégorie
             "all", ["in", "item", 9014, 2140],
             ["in", "class", 21402, 21403, 21404, 21405, 9014009, 9014010, 9014013, 9014014]
         ];
         var osmose_items = '2140,9014';
+    } else if (osmose_issues == 'stop_info') {
+        var filter = [
+            "all", ["in", "item", 9014],
+            ["in", "class", 9014006, 9014007, 9014008]
+        ];
+        var osmose_items = '9014';
+    } else if (osmose_issues == 'structural') {
+        var filter = [
+            "all", ["in", "item", 9014, 2140, 1260],
+            ["in", "class", 3, 4, 21401, 214011, 214012, 9014002]
+        ];
+        var osmose_items = '1260,2140,9014';
+    } else if (osmose_issues == 'geometry') {
+        var filter = [
+            "all", ["in", "item", 1260],
+            ["in", "class", 1, 2]
+        ];
+        var osmose_items = '1260';
     } else if (osmose_issues == '8040') {
         var osmose_items = '8040';
         var filter = ["all", ["==", "item", 8040]]
