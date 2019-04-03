@@ -1,4 +1,5 @@
 async function create_default_popup(e) {
+    console.log("osmose XX - popup par défaut")
     var item_id = e.features[0]['properties']['item'];
     popup_element.init()
 
@@ -20,6 +21,56 @@ async function create_default_popup(e) {
         popup_element.update("Impossible de récupérer le détail de cette erreur :( Réessayez plus tard !")
     }
 }
+
+async function create_popup_1260_5(e) {
+    console.log("osmose 1260_5 - tag colour/ref/operator/network différent entre route et route_master")
+    popup_element.init()
+    var popup_content = "<b> Infos de la ligne et du trajet différents </b></br>"
+    popup_content += "L'opérateur, le réseau, le numéro de ligne ainsi que la couleur devraient être identiques entre la ligne et ses trajets.<br>"
+
+    var item_id = e.features[0]['properties']['item'];
+    try {
+        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        popup_content += osmose_data['subtitle']
+        popup_element.update(popup_content)
+
+        elem_line = osmose_data['elems'][0]
+        if (elem_line['type'] == 'relation') {
+            tags_line = {}
+            for (var i = 0; i < elem_line['tags'].length; i++) {
+                tag = elem_line['tags'][i]
+                tags_line[tag['k']] = tag['v']
+            }
+        }
+        elem_route = osmose_data['elems'][1]
+        if (elem_route['type'] == 'relation') {
+            tags = {}
+            for (var i = 0; i < elem_route['tags'].length; i++) {
+                tag = elem_route['tags'][i]
+                tags[tag['k']] = tag['v']
+            }
+        }
+
+        popup_content += create_pt_relations_compare_table(tags_line, tags)
+
+        var osm_url = 'http://osm.org/' + elem_line['type'] + '/' + elem_line['id'];
+        popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir la ligne sur OSM</a>"
+        var osm_url = 'http://osm.org/' + elem_route['type'] + '/' + elem_route['id'];
+        popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir le trajet sur OSM</a>"
+
+        popup_content += `<p><b>Comment corriger ?</b>
+        <br>Rechercher les informations de la ligne (sur les informations affichées sur le prospectus papier,
+        <br>dans le bus/train/etc, aux arrêts, le site Internet du réseau, etc).
+        <br>Si la ligne existe bien, corriger les tags de la ligne ou du trajet afin qu'ils soient identiques.
+        </p>
+        `
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+
+};
 
 var create_popup_9014_9014018 = create_popup_2140_21405;
 async function create_popup_2140_21405(e) {

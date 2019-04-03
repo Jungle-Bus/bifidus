@@ -35,6 +35,18 @@ var osmose_client = (function() {
     }
 }());
 
+function create_pt_relations_compare_table(tags_line, tags_route) {
+    var table_template = `<p>
+            <br>mode : ${tags_line['route_master'] || "<i style='color:red;'>tag route non renseigné</i>"} vs ${tags_route['route'] || "<i style='color:red;'>tag route non renseigné</i>"}
+            <br>numéro de ligne : ${tags_line['ref'] || "<i style='color:red;'>tag ref non renseigné</i>"} vs ${tags_route['ref'] || "<i style='color:red;'>tag ref non renseigné</i>"}
+            <br>réseau de transport : ${tags_line['network'] || "<i style='color:red;'>tag network non renseigné</i>"} vs ${tags_route['network'] || "<i style='color:red;'>tag network non renseigné</i>"}
+            <br>transporteur : ${tags_line['operator'] || "<i style='color:red;'>tag operator non renseigné</i>"} vs ${tags_route['operator'] || "<i style='color:red;'>tag operator non renseigné</i>"}
+            <br>couleur : <span style="background-color: ${tags_line['colour']};width:20px;height:20px;display:inline-block;"></span> (${tags_line['colour']}) vs <span style="background-color: ${tags_route['colour']};width:20px;height:20px;display:inline-block;"></span> (${tags_route['colour']})
+            </p>
+            `
+    return table_template
+}
+
 function create_pt_relation_tags_table(tags) {
     if (tags['type'] == 'route') {
         var route_template = `<p>
@@ -45,7 +57,7 @@ function create_pt_relation_tags_table(tags) {
                 <br>transporteur : ${tags['operator'] || "<i style='color:red;'>tag operator non renseigné</i>"}
                 <br>origine : ${tags['from'] || "<i style='color:red;'>tag from non renseigné</i>"}
                 <br>destination : ${tags['to'] || "<i style='color:red;'>tag to non renseigné</i>"}
-                <br><div style="width:20px;height:20px;background:${tags['colour']};"></div>
+                <br><span style="background-color: ${tags['colour']};width:20px;height:20px;display:inline-block;"></span>
                 </p>
                 `
         return route_template
@@ -57,7 +69,7 @@ function create_pt_relation_tags_table(tags) {
             <br>numéro de ligne : ${tags['ref'] || "<i style='color:red;'>tag ref non renseigné</i>"}
             <br>réseau de transport : ${tags['network'] || "<i style='color:red;'>tag network non renseigné</i>"}
             <br>transporteur : ${tags['operator'] || "<i style='color:red;'>tag operator non renseigné</i>"}
-            <br><div style="width:20px;height:20px;background:${tags['colour']};"></div>
+            <br><span style="background-color: ${tags['colour']};width:20px;height:20px;display:inline-block;"></span>
             </p>
             `
     return route_master_template
@@ -88,11 +100,10 @@ function create_osmose_layer(osmose_issues) {
         var filter = ["all"];
     } else if (osmose_issues == 'line_info') {
         var filter = [
-            //manque le 1260_5 qui devrait aussi être dans cette catégorie
-            "all", ["in", "item", 9014, 2140],
-            ["in", "class", 21402, 21403, 21404, 21405, 9014009, 9014010, 9014013, 9014014]
+            "all", ["in", "item", 9014, 2140, 1260],
+            ["in", "class", 21402, 21403, 21404, 21405, 9014009, 9014010, 9014013, 9014014, 5]
         ];
-        var osmose_items = '2140,9014';
+        var osmose_items = '2140,9014,1260';
     } else if (osmose_issues == 'stop_info') {
         var filter = [
             "all", ["in", "item", 9014],
