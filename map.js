@@ -2,9 +2,9 @@ var map = new mapboxgl.Map({
     container: 'map',
     style: 'glstyle.json',
     center: [
-        2.3784, 48.851
+        -3.9175, 5.3507
     ],
-    zoom: 12,
+    zoom: 10,
     hash: true
 });
 map.addControl(new mapboxgl.NavigationControl());
