@@ -51,6 +51,13 @@ function create_pt_relation_tags_table(tags) {
     if (tags['type'] == 'route') {
         var route_template = `<p>
                 <b>${tags['name'] || '?? relation mystère ??'}</b>
+                <br><transport-thumbnail
+                    data-transport-mode="${tags['route']}"
+                    data-transport-network="${tags['network']||'??'}"
+                    data-transport-line-code="${tags['ref'] || '??'}"
+                    data-transport-destination="${tags['to'] || '??'}"
+                    data-transport-line-color="${tags['colour'] || 'white'}">
+                </transport-thumbnail>
                 <br>mode : ${tags['route'] || "<i style='color:red;'>tag route non renseigné</i>"}
                 <br>numéro de ligne : ${tags['ref'] || "<i style='color:red;'>tag ref non renseigné</i>"}
                 <br>réseau de transport : ${tags['network'] || "<i style='color:red;'>tag network non renseigné</i>"}
@@ -65,6 +72,12 @@ function create_pt_relation_tags_table(tags) {
 
     var route_master_template = `<p>
             <b>${tags['name'] || '?? relation mystère ??'}</b>
+            <br><transport-thumbnail
+                data-transport-mode="${tags['route']}"
+                data-transport-network="${tags['network']||'??'}"
+                data-transport-line-code="${tags['ref'] || '??'}"
+                data-transport-line-color="${tags['colour'] || 'white'}">
+            </transport-thumbnail>
             <br>mode : ${tags['route_master'] || "<i style='color:red;'>tag route_master non renseigné</i>"}
             <br>numéro de ligne : ${tags['ref'] || "<i style='color:red;'>tag ref non renseigné</i>"}
             <br>réseau de transport : ${tags['network'] || "<i style='color:red;'>tag network non renseigné</i>"}

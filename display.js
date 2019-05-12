@@ -375,24 +375,28 @@ async function create_popup_1260_4(e) {
     try {
         var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
 
-        var network,
-            operator,
-            ref;
-        var rel_id = osmose_data['elems'][0]['id']
-        for (elem_tag in osmose_data['elems'][0]['tags']) {
-            var tag = osmose_data['elems'][0]['tags'][elem_tag]
-            if (tag['k'] == 'network') {
-                network = tag['v']
+        var elem = osmose_data['elems'][0]
+        if (elem['type'] == 'relation') {
+            tags = {}
+            for (var i = 0; i < elem['tags'].length; i++) {
+                tag = elem['tags'][i]
+                tags[tag['k']] = tag['v']
             }
-            if (tag['k'] == 'operator') {
-                operator = tag['v']
-            }
-            if (tag['k'] == 'ref') {
-                ref = tag['v']
-            }
+            popup_content += `
+            <transport-thumbnail
+                data-transport-mode="${tags['route']}"
+                data-transport-network="${tags['network']||'??'}"
+                data-transport-line-code="${tags['ref'] || '??'}"
+                data-transport-destination="${tags['to'] || '??'}"
+                data-transport-line-color="${tags['colour'] || 'white'}">
+            </transport-thumbnail><br>`
+            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
         }
+        var network = tags['network'];
+        var operator = tags['operator'];
+        var ref = tags['ref'];
+
         popup_content += "<span id='overpass_candidates'></span>";
-        var osm_url = 'http://osm.org/relation/' + rel_id;
         popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir le trajet orphelin sur OSM</a>";
         popup_element.update(popup_content)
 
@@ -413,10 +417,10 @@ async function create_popup_1260_4(e) {
                     popup_content += overpass_data['elements'][elem_]['tags']['name'] + "</a>"
                 }
                 popup_content += "</ul>"
-                popup_content += "<br>Sinon, il faut créer la ligne - TODO lien réglisse<br>"
+                popup_content += "<br>Sinon, il faut <a href='https://jungle-bus.github.io/transport-relation-creator/' target='blank_'>créer la ligne </a><br>"
 
             } else {
-                popup_content += "<br>Créer la ligne  associée avec Réglisse (TODO ajouter lien)<br>"
+                popup_content += "<br><a href='https://jungle-bus.github.io/transport-relation-creator/' target='blank_'>Créer la ligne associée </a><br>"
 
             }
             popup_element.update(popup_content)
@@ -441,6 +445,19 @@ async function create_popup_1260_3(e) {
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
             if (elem['type'] == 'relation') {
+                tags = {}
+                for (var i = 0; i < elem['tags'].length; i++) {
+                    tag = elem['tags'][i]
+                    tags[tag['k']] = tag['v']
+                }
+                popup_content += `
+                <br><transport-thumbnail
+                    data-transport-mode="${tags['route']}"
+                    data-transport-network="${tags['network']||'??'}"
+                    data-transport-line-code="${tags['ref'] || '??'}"
+                    data-transport-destination="${tags['to'] || '??'}"
+                    data-transport-line-color="${tags['colour'] || 'white'}">
+                </transport-thumbnail><br>`
                 var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
                 popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
             }
@@ -464,6 +481,19 @@ async function create_popup_1260_1(e) {
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
             if (elem['type'] == 'relation') {
+                tags = {}
+                for (var i = 0; i < elem['tags'].length; i++) {
+                    tag = elem['tags'][i]
+                    tags[tag['k']] = tag['v']
+                }
+                popup_content += `
+                <br><transport-thumbnail
+                    data-transport-mode="${tags['route']}"
+                    data-transport-network="${tags['network']||'??'}"
+                    data-transport-line-code="${tags['ref'] || '??'}"
+                    data-transport-destination="${tags['to'] || '??'}"
+                    data-transport-line-color="${tags['colour'] || 'white'}">
+                </transport-thumbnail><br>`
                 var external_url = 'http://ra.osmsurround.org/analyzeMap?relationId=' + elem['id'];
                 popup_content += "<br><a target='blank_' href='" + external_url + "'>Analyser cette relation</a>"
             }
@@ -488,6 +518,19 @@ async function create_popup_1260_2(e) {
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
             if (elem['type'] == 'relation') {
+                tags = {}
+                for (var i = 0; i < elem['tags'].length; i++) {
+                    tag = elem['tags'][i]
+                    tags[tag['k']] = tag['v']
+                }
+                popup_content += `
+                <br><transport-thumbnail
+                    data-transport-mode="${tags['route']}"
+                    data-transport-network="${tags['network']||'??'}"
+                    data-transport-line-code="${tags['ref'] || '??'}"
+                    data-transport-destination="${tags['to'] || '??'}"
+                    data-transport-line-color="${tags['colour'] || 'white'}">
+                </transport-thumbnail><br>`
                 var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
                 osm_url += '#map=17/' + e.features[0].geometry.coordinates[1] + '/' + e.features[0].geometry.coordinates[0] + '&layers=T';
                 popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
