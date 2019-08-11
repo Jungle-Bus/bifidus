@@ -511,10 +511,10 @@ async function create_popup_1260_2(e) {
 
     popup_element.init()
     var item_id = e.features[0]['properties']['item'];
+    var item_coord = e.features[0]._geometry
 
     try {
         var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
-
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
             if (elem['type'] == 'relation') {
@@ -532,7 +532,7 @@ async function create_popup_1260_2(e) {
                     data-transport-line-color="${tags['colour'] || 'white'}">
                 </transport-thumbnail><br>`
                 var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
-                osm_url += '#map=17/' + e.features[0].geometry.coordinates[1] + '/' + e.features[0].geometry.coordinates[0] + '&layers=T';
+                osm_url += '#map=17/' + item_coord.coordinates[1] + '/' + item_coord.coordinates[0] + '&layers=T';
                 popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
             }
         }
