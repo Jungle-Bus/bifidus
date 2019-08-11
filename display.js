@@ -1,10 +1,10 @@
 async function create_default_popup(e) {
     console.log("osmose XX - popup par défaut")
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     popup_element.init()
 
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
 
         var popup_content = "<b>" + osmose_data['title'] + "</b><br/>"
         popup_content += osmose_data['subtitle']
@@ -13,9 +13,9 @@ async function create_default_popup(e) {
             var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
-
-
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
+
     } catch (err) {
         console.log("erreur en récupérant les infos d'Osmose : " + err)
         popup_element.update("Impossible de récupérer le détail de cette erreur :( Réessayez plus tard !")
@@ -28,9 +28,9 @@ async function create_popup_1260_5(e) {
     var popup_content = "<b> Infos de la ligne et du trajet différents </b></br>"
     popup_content += "L'opérateur, le réseau, le numéro de ligne ainsi que la couleur devraient être identiques entre la ligne et ses trajets.<br>"
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_content += osmose_data['subtitle']
         popup_element.update(popup_content)
 
@@ -64,6 +64,7 @@ async function create_popup_1260_5(e) {
         <br>Si la ligne existe bien, corriger les tags de la ligne ou du trajet afin qu'ils soient identiques.
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -79,9 +80,9 @@ async function create_popup_2140_21405(e) {
     var popup_content = "<b> Terminus de ligne manquant(s) </b></br>"
     popup_content += "L'origine et/ou la destination n'est pas indiquée pour cette ligne."
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -102,6 +103,7 @@ async function create_popup_2140_21405(e) {
         <br>Si la ligne existe bien, ajouter ses terminus dans les tags from et to de la relation.
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -117,9 +119,9 @@ async function create_popup_2140_21404(e) {
     var popup_content = "<b> Code de ligne manquant </b></br>"
     popup_content += "Le numéro n'est pas indiqué pour cette ligne."
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -140,6 +142,7 @@ async function create_popup_2140_21404(e) {
         <br>Si la ligne existe bien, ajouter son numéro dans le tag ref de la relation.
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -155,9 +158,9 @@ async function create_popup_2140_21403(e) {
     var popup_content = "<b> Opérateur de transport manquant </b></br>"
     popup_content += "Le transporteur n'est pas indiqué pour cette ligne."
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -178,6 +181,7 @@ async function create_popup_2140_21403(e) {
         <br>Si la ligne existe bien, ajouter le nom du transporteur dans le tag operator de la relation.
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -192,9 +196,9 @@ async function create_popup_2140_21402(e) {
     var popup_content = "<b> Réseau de transport manquant </b></br>"
     popup_content += "Le réseau de transport n'est pas indiqué pour cette ligne."
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -215,6 +219,7 @@ async function create_popup_2140_21402(e) {
         <br>Si la ligne existe bien, ajouter le nom du réseau dans le tag network de la relation.
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -228,9 +233,9 @@ async function create_popup_9014_9014009(e) {
     var popup_content = "<b> Mode de transport manquant </b></br>"
     popup_content += "Le mode de transport n'est pas indiqué pour cette ligne."
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -250,6 +255,7 @@ async function create_popup_9014_9014009(e) {
         <br>Si la ligne existe bien, ajouter le mode de transport dans le tag route de la relation.
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -263,9 +269,9 @@ async function create_popup_9014_9014010(e) {
     var popup_content = "<b> Mode de transport manquant </b></br>"
     popup_content += "Le mode de transport n'est pas indiqué pour cette ligne."
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -286,6 +292,7 @@ async function create_popup_9014_9014010(e) {
         <br>Si la ligne existe bien, ajouter le mode de transport dans le tag route de la relation.
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -299,9 +306,9 @@ async function create_popup_9014_9014013(e) {
     var popup_content = "<b> Opérateur de transport invalide </b></br>"
     popup_content += "Ce transporteur n'existe pas."
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -322,6 +329,7 @@ async function create_popup_9014_9014013(e) {
         <br>Puis, corriger le nom du transporteur (tag operator de la relation).
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -335,9 +343,9 @@ async function create_popup_9014_9014014(e) {
     var popup_content = "<b> Réseau de transport invalide </b></br>"
     popup_content += "Ce réseau de transport n'existe pas."
 
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
 
         elem = osmose_data['elems'][0]
@@ -358,6 +366,7 @@ async function create_popup_9014_9014014(e) {
         <br>Puis, corriger le nom du réseau (tag network de la relation).
         </p>
         `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -370,10 +379,10 @@ async function create_popup_1260_4(e) {
     var popup_content = "<b>Ce trajet n'est rattaché à aucune ligne !</b></br>"
 
     popup_element.init()
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
 
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
 
         var elem = osmose_data['elems'][0]
         if (elem['type'] == 'relation') {
@@ -426,6 +435,9 @@ async function create_popup_1260_4(e) {
             popup_element.update(popup_content)
         }
 
+        popup_content += add_osmose_generic_action_buttons(issue_id)
+        popup_element.update(popup_content)
+
 
     } catch (err) {
         console.log("erreur en récupérant les infos d'Osmose : " + err)
@@ -438,9 +450,9 @@ async function create_popup_1260_3(e) {
     popup_content += "Il faut vérifier les objets membres de cette relation."
 
     popup_element.init()
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
 
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
@@ -462,6 +474,7 @@ async function create_popup_1260_3(e) {
                 popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
             }
         }
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -474,9 +487,9 @@ async function create_popup_1260_1(e) {
     popup_content += "Le tracé est sûrement incomplet, ou erroné."
 
     popup_element.init()
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
 
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
@@ -498,6 +511,7 @@ async function create_popup_1260_1(e) {
                 popup_content += "<br><a target='blank_' href='" + external_url + "'>Analyser cette relation</a>"
             }
         }
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {
@@ -510,11 +524,11 @@ async function create_popup_1260_2(e) {
     popup_content += "Soit le tracé est incomplet, ou erroné, soit l'arrêt ne fait pas partie du trajet de cette ligne"
 
     popup_element.init()
-    var item_id = e.features[0]['properties']['item'];
+    var issue_id = e.features[0].properties.issue_id;
     var item_coord = e.features[0]._geometry
 
     try {
-        var osmose_data = await osmose_client.fetchError(e.features[0].properties.issue_id)
+        var osmose_data = await osmose_client.fetchError(issue_id);
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
             if (elem['type'] == 'relation') {
@@ -536,6 +550,7 @@ async function create_popup_1260_2(e) {
                 popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
             }
         }
+        popup_content += add_osmose_generic_action_buttons(issue_id)
         popup_element.update(popup_content)
 
     } catch (err) {

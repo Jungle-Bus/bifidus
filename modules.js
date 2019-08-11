@@ -31,9 +31,29 @@ var osmose_client = (function() {
             var osmose_response = await fetch(osmose_url);
             var osmose_data = await osmose_response.json();
             return osmose_data
-        }
+        },
+        closeError: async function(osmose_id) {
+            var osmose_url = `${osmose_base_api_url}${osmose_id}/done`;
+            var osmose_response = await fetch(osmose_url);
+            return osmose_response
+        },
+        falseError: async function(osmose_id) {
+            var osmose_url = `${osmose_base_api_url}${osmose_id}/false`;
+            var osmose_response = await fetch(osmose_url);
+            return osmose_response
+        },
     }
 }());
+
+function add_osmose_generic_action_buttons(osmose_issue_id){
+    return `
+    <details>
+        <summary>Autres actions</summary>
+        <button onclick=';osmose_client.falseError(${osmose_issue_id});popup_element.remove()'>C'est un faux positif !</button>
+         <button onclick='osmose_client.closeError(${osmose_issue_id});popup_element.remove()'>Je l'ai résolu</button>
+    </details>
+    `
+} 
 
 function create_pt_relations_compare_table(tags_line, tags_route) {
     var table_template = `<p>
