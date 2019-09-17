@@ -53,7 +53,7 @@ function add_osmose_generic_action_buttons(osmose_issue_id){
          <button onclick='osmose_client.closeError(${osmose_issue_id});popup_element.remove()'>Je l'ai résolu</button>
     </details>
     `
-} 
+}
 
 function create_pt_relations_compare_table(tags_line, tags_route) {
     var table_template = `<p>
@@ -133,10 +133,10 @@ function create_osmose_layer(osmose_issues) {
         var filter = ["all"];
     } else if (osmose_issues == 'line_info') {
         var filter = [
-            "all", ["in", "item", 9014, 2140, 1260],
-            ["in", "class", 21402, 21403, 21404, 21405, 9014009, 9014010, 9014013, 9014014, 5]
+            "all", ["in", "item", 9014, 2140, 1260, 3250],
+            ["in", "class", 21402, 21403, 21404, 21405, 9014009, 9014010, 9014013, 9014014, 9014020, 9014021, 9014022, 9014023,9014024, 5, 32502]
         ];
-        var osmose_items = '2140,9014,1260';
+        var osmose_items = '2140,9014,1260,3250';
     } else if (osmose_issues == 'stop_info') {
         var filter = [
             "all", ["in", "item", 9014],
@@ -146,7 +146,7 @@ function create_osmose_layer(osmose_issues) {
     } else if (osmose_issues == 'structural') {
         var filter = [
             "all", ["in", "item", 9014, 2140, 1260],
-            ["in", "class", 3, 4, 21401, 214011, 214012, 9014002]
+            ["in", "class", 3, 4, 21401, 214011, 214012, 9014002, 9014019]
         ];
         var osmose_items = '1260,2140,9014';
     } else if (osmose_issues == 'geometry') {
