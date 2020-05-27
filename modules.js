@@ -24,7 +24,7 @@ var osmose_client = (function() {
         for now, we only fetch single error and this few lines should do the trick
         in the future, we may switch to https://github.com/osmlab/osmose-request
     */
-    const osmose_base_api_url = 'https://osmose.openstreetmap.fr/fr/api/0.2/error/'
+    const osmose_base_api_url = 'https://osmose.openstreetmap.fr/fr/api/0.3beta/issue/'
     return {
         fetchError: async function(osmose_id) {
             var osmose_url = osmose_base_api_url + osmose_id
@@ -126,7 +126,7 @@ function get_parameter_from_url(param_name) {
 }
 
 function create_osmose_layer(osmose_issues) {
-    var osmose_tiles_url = "https://osmose.openstreetmap.fr/fr/map/issues/{z}/{x}/{y}.mvt?";
+    var osmose_tiles_url = "https://osmose.openstreetmap.fr/fr/api/0.3beta/issues/{z}/{x}/{y}.mvt?";
 
     if (osmose_issues == 'all') {
         var osmose_items = '2140,8040,1260,9014';

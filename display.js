@@ -1,16 +1,16 @@
 async function create_default_popup(e) {
     console.log("osmose XX - popup par défaut")
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     popup_element.init()
 
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
 
-        var popup_content = "<b>" + osmose_data['title'] + "</b><br/>"
-        popup_content += osmose_data['subtitle']
+        var popup_content = "<b>" + osmose_data['title']['auto'] + "</b><br/>"
+        popup_content += osmose_data['subtitle']['auto']
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
         popup_content += add_osmose_generic_action_buttons(issue_id)
@@ -28,7 +28,7 @@ async function create_popup_1260_5(e) {
     var popup_content = "<b> Infos de la ligne et du trajet différents </b></br>"
     popup_content += "L'opérateur, le réseau, le numéro de ligne ainsi que la couleur devraient être identiques entre la ligne et ses trajets.<br>"
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_content += osmose_data['subtitle']
@@ -53,9 +53,9 @@ async function create_popup_1260_5(e) {
 
         popup_content += create_pt_relations_compare_table(tags_line, tags)
 
-        var osm_url = 'http://osm.org/' + elem_line['type'] + '/' + elem_line['id'];
+        var osm_url = 'https://osm.org/' + elem_line['type'] + '/' + elem_line['id'];
         popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir la ligne sur OSM</a>"
-        var osm_url = 'http://osm.org/' + elem_route['type'] + '/' + elem_route['id'];
+        var osm_url = 'https://osm.org/' + elem_route['type'] + '/' + elem_route['id'];
         popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir le trajet sur OSM</a>"
 
         popup_content += `<p><b>Comment corriger ?</b>
@@ -80,7 +80,7 @@ async function create_popup_2140_21405(e) {
     var popup_content = "<b> Terminus de ligne manquant(s) </b></br>"
     popup_content += "L'origine et/ou la destination n'est pas indiquée pour cette ligne."
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
@@ -93,7 +93,7 @@ async function create_popup_2140_21405(e) {
                 tags[tag['k']] = tag['v']
             }
             popup_content += create_pt_relation_tags_table(tags)
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
 
@@ -119,7 +119,7 @@ async function create_popup_2140_21404(e) {
     var popup_content = "<b> Code de ligne manquant </b></br>"
     popup_content += "Le numéro n'est pas indiqué pour cette ligne."
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
@@ -132,7 +132,7 @@ async function create_popup_2140_21404(e) {
                 tags[tag['k']] = tag['v']
             }
             popup_content += create_pt_relation_tags_table(tags)
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
 
@@ -158,7 +158,7 @@ async function create_popup_2140_21403(e) {
     var popup_content = "<b> Opérateur de transport manquant </b></br>"
     popup_content += "Le transporteur n'est pas indiqué pour cette ligne."
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
@@ -171,7 +171,7 @@ async function create_popup_2140_21403(e) {
                 tags[tag['k']] = tag['v']
             }
             popup_content += create_pt_relation_tags_table(tags)
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
 
@@ -196,7 +196,7 @@ async function create_popup_2140_21402(e) {
     var popup_content = "<b> Réseau de transport manquant </b></br>"
     popup_content += "Le réseau de transport n'est pas indiqué pour cette ligne."
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
@@ -209,7 +209,7 @@ async function create_popup_2140_21402(e) {
                 tags[tag['k']] = tag['v']
             }
             popup_content += create_pt_relation_tags_table(tags)
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
 
@@ -233,7 +233,7 @@ async function create_popup_9014_9014009(e) {
     var popup_content = "<b> Mode de transport manquant </b></br>"
     popup_content += "Le mode de transport n'est pas indiqué pour cette ligne."
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
@@ -246,7 +246,7 @@ async function create_popup_9014_9014009(e) {
                 tags[tag['k']] = tag['v']
             }
             popup_content += create_pt_relation_tags_table(tags)
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
 
@@ -269,7 +269,7 @@ async function create_popup_9014_9014010(e) {
     var popup_content = "<b> Mode de transport manquant </b></br>"
     popup_content += "Le mode de transport n'est pas indiqué pour cette ligne."
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
@@ -283,7 +283,7 @@ async function create_popup_9014_9014010(e) {
             }
             popup_content += `<br>Il s'agit surement d'un ${tags['route']}.`
             popup_content += create_pt_relation_tags_table(tags)
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
 
@@ -306,7 +306,7 @@ async function create_popup_9014_9014013(e) {
     var popup_content = "<b> Opérateur de transport invalide </b></br>"
     popup_content += "Ce transporteur n'existe pas."
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
@@ -319,7 +319,7 @@ async function create_popup_9014_9014013(e) {
                 tags[tag['k']] = tag['v']
             }
             popup_content += create_pt_relation_tags_table(tags)
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
 
@@ -343,7 +343,7 @@ async function create_popup_9014_9014014(e) {
     var popup_content = "<b> Réseau de transport invalide </b></br>"
     popup_content += "Ce réseau de transport n'existe pas."
 
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
         popup_element.update(popup_content)
@@ -356,7 +356,7 @@ async function create_popup_9014_9014014(e) {
                 tags[tag['k']] = tag['v']
             }
             popup_content += create_pt_relation_tags_table(tags)
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
             popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
         }
 
@@ -379,7 +379,7 @@ async function create_popup_1260_4(e) {
     var popup_content = "<b>Ce trajet n'est rattaché à aucune ligne !</b></br>"
 
     popup_element.init()
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
 
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
@@ -399,7 +399,7 @@ async function create_popup_1260_4(e) {
                 data-transport-destination="${tags['to'] || '??'}"
                 data-transport-line-color="${tags['colour'] || 'white'}">
             </transport-thumbnail><br>`
-            var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
         }
         var network = tags['network'];
         var operator = tags['operator'];
@@ -422,7 +422,7 @@ async function create_popup_1260_4(e) {
                 popup_content += "<ul>"
 
                 for (elem_ in overpass_data['elements']) {
-                    popup_content += "<li> <a href='http://osm.org/relation/" + overpass_data['elements'][elem_]['id'] + "' target='blank_'> "
+                    popup_content += "<li> <a href='https://osm.org/relation/" + overpass_data['elements'][elem_]['id'] + "' target='blank_'> "
                     popup_content += overpass_data['elements'][elem_]['tags']['name'] + "</a>"
                 }
                 popup_content += "</ul>"
@@ -450,7 +450,7 @@ async function create_popup_1260_3(e) {
     popup_content += "Il faut vérifier les objets membres de cette relation."
 
     popup_element.init()
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
 
@@ -470,7 +470,7 @@ async function create_popup_1260_3(e) {
                     data-transport-destination="${tags['to'] || '??'}"
                     data-transport-line-color="${tags['colour'] || 'white'}">
                 </transport-thumbnail><br>`
-                var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+                var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
                 popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
             }
         }
@@ -487,7 +487,7 @@ async function create_popup_1260_1(e) {
     popup_content += "Le tracé est sûrement incomplet, ou erroné."
 
     popup_element.init()
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     try {
         var osmose_data = await osmose_client.fetchError(issue_id);
 
@@ -524,7 +524,7 @@ async function create_popup_1260_2(e) {
     popup_content += "Soit le tracé est incomplet, ou erroné, soit l'arrêt ne fait pas partie du trajet de cette ligne"
 
     popup_element.init()
-    var issue_id = e.features[0].properties.issue_id;
+    var issue_id = e.features[0].properties.uuid;
     var item_coord = e.features[0]._geometry
 
     try {
@@ -545,7 +545,7 @@ async function create_popup_1260_2(e) {
                     data-transport-destination="${tags['to'] || '??'}"
                     data-transport-line-color="${tags['colour'] || 'white'}">
                 </transport-thumbnail><br>`
-                var osm_url = 'http://osm.org/' + elem['type'] + '/' + elem['id'];
+                var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
                 osm_url += '#map=17/' + item_coord.coordinates[1] + '/' + item_coord.coordinates[0] + '&layers=T';
                 popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
             }

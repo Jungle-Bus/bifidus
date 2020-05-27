@@ -19,36 +19,36 @@ var osmose_issues = get_issues_to_display_from_url()
 var zoom_div = document.getElementById('zoom-overlay');
 
 map.on('load', function() {
-    map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-3010.png', function(error, image) {
+    map.loadImage('https://osmose.openstreetmap.fr/fr/images/markers/marker-b-3010.png', function(error, image) {
         if (error)
             throw error;
         map.addImage('8040', image);
     });
 
-    map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-1070.png', function(error, image) {
+    map.loadImage('https://osmose.openstreetmap.fr/fr/images/markers/marker-b-1070.png', function(error, image) {
         if (error)
             throw error;
         map.addImage('2140', image);
     });
 
-    map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-1070.png', function(error, image) {
+    map.loadImage('https://osmose.openstreetmap.fr/fr/images/markers/marker-b-1070.png', function(error, image) {
         if (error)
             throw error;
         map.addImage('9014', image);
     });
-    map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-1070.png', function(error, image) {
+    map.loadImage('https://osmose.openstreetmap.fr/fr/images/markers/marker-b-1070.png', function(error, image) {
         if (error)
             throw error;
         map.addImage('3250', image);
     });
 
-    map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-5010.png', function(error, image) {
+    map.loadImage('https://osmose.openstreetmap.fr/fr/images/markers/marker-b-5010.png', function(error, image) {
         if (error)
             throw error;
         map.addImage('1260', image);
     });
 
-    map.loadImage('https://raw.githubusercontent.com/osm-fr/osmose-frontend/master/static/images/markers/marker-b-7060.png', function(error, image) {
+    map.loadImage('https://osmose.openstreetmap.fr/fr/images/markers/marker-b-7060.png', function(error, image) {
         if (error)
             throw error;
         map.addImage('8042', image);

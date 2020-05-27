@@ -9,10 +9,10 @@ This is a quality assurance tool for transit data in OpenStreetMap.
 
 ## License
 
-This project is developed by the [Jungle Bus](http://junglebus.io/) team.
+This project is developed by the [Jungle Bus](https://junglebus.io/) team.
 
-It uses [Osmose](http://osmose.openstreetmap.fr/) issues about public transport as a data source.
+It uses [Osmose](https://osmose.openstreetmap.fr/) issues about public transport as a data source.
 
 The code in this repository is under the MIT license.
 
-If you value this work, show your support by donating to the [OSM French local chapter](http://openstreetmap.fr).
+If you value this work, show your support by donating to the [OSM French local chapter](https://openstreetmap.fr).
