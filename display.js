@@ -7,7 +7,9 @@ async function create_default_popup(e) {
         var osmose_data = await osmose_client.fetchError(issue_id);
 
         var popup_content = "<b>" + osmose_data['title']['auto'] + "</b><br/>"
-        popup_content += osmose_data['subtitle']['auto']
+        if (osmose_data['subtitle']) {
+            popup_content += osmose_data['subtitle']['auto']
+        }
         for (elem_id in osmose_data['elems']) {
             elem = osmose_data['elems'][elem_id]
             var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
@@ -557,6 +559,144 @@ async function create_popup_1260_2(e) {
         console.log("erreur en récupérant les infos d'Osmose : " + err)
     }
 };
+
+async function create_popup_1260_7(e) {
+    console.log("osmose 1260_7 - The stop_position is not part of a way")
+    var popup_content = "<b>L'emplacement où s'arrête le véhicule n'est pas sur une voie</b></br>"
+    popup_content += "Cet objet a le tag 'public_transport=stop_position'.</br>"
+    popup_content += "Il représente donc l'emplacement où s'arrête les véhicules de cette ligne.</br>"
+    popup_content += "Hors, il ne se trouve pas sur un chemin."
+
+    popup_element.init()
+    var issue_id = e.features[0].properties.uuid;
+    try {
+        var osmose_data = await osmose_client.fetchError(issue_id);
+
+        for (elem_id in osmose_data['elems']) {
+            elem = osmose_data['elems'][elem_id]
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
+            popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+        }
+
+        popup_content += `<p><b>Comment corriger ?</b>
+        <br>Ajouter cet objet comme un noeud du chemin où circule le véhicule.
+        <br>Sinon, retirer le tag 'public_transport=stop_position'.
+        </p>
+        `
+        popup_content += add_osmose_generic_action_buttons(issue_id)
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+};
+
+async function create_popup_1260_6(e) {
+    console.log("osmose 1260_6 - The bus stop is part of a way, it should have public_transport=stop_position tag")
+    var popup_content = "<b>Cet arrêt de bus est placé sur une route</b></br>"
+
+    popup_element.init()
+    var issue_id = e.features[0].properties.uuid;
+    try {
+        var osmose_data = await osmose_client.fetchError(issue_id);
+
+        for (elem_id in osmose_data['elems']) {
+            elem = osmose_data['elems'][elem_id]
+            var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
+            popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+        }
+
+        popup_content += `<p><b>Comment corriger ?</b>
+        <br>Soit il est mal placé et il faut le déplacer à côté de la route.
+        <br>soit il lui manque le tag 'public_transport=stop_position'.
+        </p>`
+
+        popup_content += add_osmose_generic_action_buttons(issue_id)
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+};
+
+async function create_popup_1260_8(e) {
+    console.log("osmose 1260_8 - The platform is part of a way, it should have the role stop")
+    var popup_content = "<b>Cet arrêt est sur une voie, il devrait avoir le rôle 'stop' dans la relation </b></br>"
+
+    popup_element.init()
+    var issue_id = e.features[0].properties.uuid;
+    var item_coord = e.features[0]._geometry
+
+    try {
+        var osmose_data = await osmose_client.fetchError(issue_id);
+        for (elem_id in osmose_data['elems']) {
+            elem = osmose_data['elems'][elem_id]
+            if (elem['type'] == 'relation') {
+                tags = {}
+                for (var i = 0; i < elem['tags'].length; i++) {
+                    tag = elem['tags'][i]
+                    tags[tag['k']] = tag['v']
+                }
+                popup_content += `
+                <br><transport-thumbnail
+                    data-transport-mode="${tags['route']}"
+                    data-transport-network="${tags['network']||'??'}"
+                    data-transport-line-code="${tags['ref'] || '??'}"
+                    data-transport-destination="${tags['to'] || '??'}"
+                    data-transport-line-color="${tags['colour'] || 'white'}">
+                </transport-thumbnail><br>`
+                var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
+                osm_url += '#map=17/' + item_coord.coordinates[1] + '/' + item_coord.coordinates[0] + '&layers=T';
+                popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+            }
+        }
+        popup_content += add_osmose_generic_action_buttons(issue_id)
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+};
+
+async function create_popup_1260_9(e) {
+    console.log("osmose 1260_9 - The stop is not part of a way")
+    var popup_content = "<b>Cet arrêt a le rôle 'stop' mais n'est pas sur une voie </b></br>"
+
+    popup_element.init()
+    var issue_id = e.features[0].properties.uuid;
+    var item_coord = e.features[0]._geometry
+
+    try {
+        var osmose_data = await osmose_client.fetchError(issue_id);
+        for (elem_id in osmose_data['elems']) {
+            elem = osmose_data['elems'][elem_id]
+            if (elem['type'] == 'relation') {
+                tags = {}
+                for (var i = 0; i < elem['tags'].length; i++) {
+                    tag = elem['tags'][i]
+                    tags[tag['k']] = tag['v']
+                }
+                popup_content += `
+                <br><transport-thumbnail
+                    data-transport-mode="${tags['route']}"
+                    data-transport-network="${tags['network']||'??'}"
+                    data-transport-line-code="${tags['ref'] || '??'}"
+                    data-transport-destination="${tags['to'] || '??'}"
+                    data-transport-line-color="${tags['colour'] || 'white'}">
+                </transport-thumbnail><br>`
+                var osm_url = 'https://osm.org/' + elem['type'] + '/' + elem['id'];
+                osm_url += '#map=17/' + item_coord.coordinates[1] + '/' + item_coord.coordinates[0] + '&layers=T';
+                popup_content += "<br><a target='blank_' href='" + osm_url + "'>Voir sur OSM</a>"
+            }
+        }
+        popup_content += add_osmose_generic_action_buttons(issue_id)
+        popup_element.update(popup_content)
+
+    } catch (err) {
+        console.log("erreur en récupérant les infos d'Osmose : " + err)
+    }
+};
+
 
 function display_info(e) {
     map.flyTo({

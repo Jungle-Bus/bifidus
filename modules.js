@@ -146,7 +146,7 @@ function create_osmose_layer(osmose_issues) {
     } else if (osmose_issues == 'structural') {
         var filter = [
             "all", ["in", "item", 9014, 2140, 1260],
-            ["in", "class", 3, 4, 21401, 214011, 214012, 9014002, 9014019]
+            ["in", "class", 3, 4, 21401, 214011, 214012, 9014002, 9014019, 6, 7, 8, 9]
         ];
         var osmose_items = '1260,2140,9014';
     } else if (osmose_issues == 'geometry') {
