@@ -30,11 +30,11 @@
     "sources": {
         "openmaptiles": {
             "type": "vector",
-            "url": "https://api.maptiler.com/tiles/v3/tiles.json?key=l6rAMndj64l3TkAt8RDB"
+            "url": "https://api.maptiler.com/tiles/v3/tiles.json?key=0gtjCltU5zwtoB7j3dxe"
         }
     },
     "sprite": "https://api.maptiler.com/maps/positron/sprite",
-    "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=l6rAMndj64l3TkAt8RDB",
+    "glyphs": "https://api.maptiler.com/fonts/{fontstack}/{range}.pbf?key=0gtjCltU5zwtoB7j3dxe",
     "layers": [{
             "id": "background",
             "type": "background",
